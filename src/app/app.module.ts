@@ -7,6 +7,7 @@ import { HeaderComponent } from './features/header/header.component';
 import { HomeComponent } from './features/home/home.component';
 import { QuillModule } from 'ngx-quill';
 import { RitchTextComponent } from './features/ritch-text/ritch-text.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { RitchTextComponent } from './features/ritch-text/ritch-text.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    QuillModule.forRoot()
+    QuillModule.forRoot(),
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
