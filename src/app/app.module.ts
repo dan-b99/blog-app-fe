@@ -8,19 +8,29 @@ import { HomeComponent } from './features/home/home.component';
 import { QuillModule } from 'ngx-quill';
 import { RitchTextComponent } from './features/ritch-text/ritch-text.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UserRegistrationComponent } from './features/user-registration/user-registration.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     HomeComponent,
-    RitchTextComponent
+    RitchTextComponent,
+    UserRegistrationComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     QuillModule.forRoot(),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

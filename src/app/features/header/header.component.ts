@@ -18,7 +18,7 @@ import { Component } from '@angular/core';
         <a class="nav-link" href="#">Accedi</a>
       </li>
       <li class="nav-item">
-          <a class="nav-link" href="#">Registrati</a>
+          <a class="nav-link" href="signUp">Registrati</a>
       </li>
         <li class="nav-item">
           <a class="nav-link" href="#">About</a>
