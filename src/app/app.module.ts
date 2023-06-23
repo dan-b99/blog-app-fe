@@ -8,13 +8,14 @@ import { HomeComponent } from './features/home/home.component';
 import { QuillModule } from 'ngx-quill';
 import { RitchTextComponent } from './features/ritch-text/ritch-text.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { UserRegistrationComponent } from './features/user-registration/user-registration.component';
+import { UserRegistrationComponent } from './features/user/user-registration/user-registration.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { UserLoginComponent } from './features/user/user-login/user-login.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { MatCardModule } from '@angular/material/card';
     HeaderComponent,
     HomeComponent,
     RitchTextComponent,
-    UserRegistrationComponent
+    UserRegistrationComponent,
+    UserLoginComponent
   ],
   imports: [
     BrowserModule,

@@ -41,7 +41,7 @@ import { RegistrazioneDTO } from 'src/app/shared/models/auth/registrazione-dto.m
         </mat-form-field>
       </div>
       <div class="row mx-3">
-        <button class="btn btn-secondary btn-sm col-3" (click)="sendRegistration()">Invia</button>
+        <button class="btn btn-secondary btn-sm col-3" [disabled]="registrationForm.invalid" (click)="sendRegistration()">Invia</button>
       </div>
     </form>
     </mat-card>

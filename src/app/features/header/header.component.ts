@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-header',
   template: `
-  <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+  <nav class="navbar navbar-expand-lg bg-body-tertiary p-3" data-bs-theme="dark">
     <div class="container-fluid">
       <a class="navbar-brand">BloggingApp</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -15,7 +15,7 @@ import { Component, OnInit } from '@angular/core';
         <a [ngClass]="{'nav-link': true, 'active': boolArr.isHome}" routerLink="home" (click)="isClicked($event)">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Accedi</a>
+        <a [ngClass]="{'nav-link': true, 'active': boolArr.isLogin}" routerLink="login" (click)="isClicked($event)">Accedi</a>
       </li>
       <li class="nav-item">
           <a [ngClass]="{'nav-link': true, 'active': boolArr.isSignUp}" routerLink="signUp" (click)="isClicked($event)">Registrati</a>
@@ -48,6 +48,7 @@ export class HeaderComponent implements OnInit {
   }
 
   isClicked(event: any) {
+    
     if(event.target.href.endsWith('signUp')) {
       this.boolArr!.isHome = false;
       this.boolArr!.isAbout = false;
