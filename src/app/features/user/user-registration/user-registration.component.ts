@@ -1,6 +1,10 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { RegistrazioneDTO } from 'src/app/shared/models/auth/registrazione-dto.model';
+import { UtenteOutput } from 'src/app/shared/models/auth/utente-output.model';
+import { UserService } from 'src/app/shared/user.service';
 
 @Component({
   selector: 'app-user-registration',
@@ -55,16 +59,15 @@ import { RegistrazioneDTO } from 'src/app/shared/models/auth/registrazione-dto.m
 export class UserRegistrationComponent {
   registrationForm: FormGroup;
   hide: boolean = true;
-  userRegistered?: RegistrazioneDTO;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private userService: UserService, private snackBar: MatSnackBar) {
     this.registrationForm = this.formBuilder.group({
       nome: new FormControl('', [Validators.required]),
       cognome: new FormControl('', [Validators.required]),
       username: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required])
-    })
+    });
   }
 
   errorRequired(field: string): string {
@@ -79,7 +82,26 @@ export class UserRegistrationComponent {
   }
 
   sendRegistration() {
-    console.log("FORM: ", this.registrationForm.controls);
+    let userToRegister: RegistrazioneDTO = {
+      nome: this.registrationForm.controls['nome'].value,
+      cognome: this.registrationForm.controls['cognome'].value,
+      username: this.registrationForm.controls['username'].value,
+      password: this.registrationForm.controls['password'].value,
+      email: this.registrationForm.controls['email'].value
+    };
+    this.userService.register(userToRegister).subscribe({
+      next: (registered: UtenteOutput) => {
+        this.snackBar.open("Operazione riuscita", "OK", {
+          verticalPosition: 'top',
+          horizontalPosition: 'right'
+        });
+      },
+      error: (respErr: HttpErrorResponse) => {
+        this.snackBar.open(respErr.error.message, "OK", {
+          verticalPosition: 'top',
+          horizontalPosition: 'right'
+        }); 
+      }
+    });
   }
-
 }

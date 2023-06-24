@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UserService } from 'src/app/shared/user.service';
 
 @Component({
   selector: 'app-user-login',
@@ -38,7 +39,7 @@ export class UserLoginComponent {
   loginForm: FormGroup;
   hide: boolean = true;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private userService: UserService) {
     this.loginForm = formBuilder.group({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required])

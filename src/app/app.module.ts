@@ -15,7 +15,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { UserLoginComponent } from './features/user/user-login/user-login.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -30,13 +32,15 @@ import { UserLoginComponent } from './features/user/user-login/user-login.compon
     BrowserModule,
     AppRoutingModule,
     QuillModule.forRoot(),
+    HttpClientModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
     BrowserAnimationsModule,
     MatButtonModule,
-    MatCardModule
+    MatCardModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
