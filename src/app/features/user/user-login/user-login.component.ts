@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Autenticazione } from 'src/app/shared/models/auth/autenticazione-dto.model';
 import { LoginDTO } from 'src/app/shared/models/auth/login-dto.model';
 import { SnackBarService } from 'src/app/shared/snack-bar.service';
@@ -40,15 +40,20 @@ import { UserService } from 'src/app/shared/user.service';
   styles: [
   ]
 })
-export class UserLoginComponent {
+export class UserLoginComponent implements OnInit {
   loginForm: FormGroup;
   hide: boolean = true;
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService, private snackBar: SnackBarService, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private userService: UserService, private snackBar: SnackBarService, private router: Router, private actRoute: ActivatedRoute) {
     this.loginForm = formBuilder.group({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required])
     });
+  }
+
+
+  ngOnInit(): void {
+    console.log(this.actRoute);
   }
 
   errorRequired(field: string): string {
@@ -73,9 +78,11 @@ export class UserLoginComponent {
         localStorage.setItem("jwt", authenticated.jwt);
         localStorage.setItem("USER_ID", authenticated.utenteOutput.id + '');
         localStorage.setItem("name", authenticated.utenteOutput.nome)
-        this.router.navigateByUrl('/home');
+        this.router.navigateByUrl('/home').then(() => window.location.reload());
       }, 
-      error: (err: HttpErrorResponse) => this.snackBar.open(err.message)
+      error: (respErr: HttpErrorResponse) => {
+        this.snackBar.open(respErr.error.message)
+      }
     });
   }
 

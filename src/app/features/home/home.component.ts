@@ -1,13 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { enviroment } from 'src/app/shared/enviroment';
-import { UtenteOutput } from 'src/app/shared/models/auth/utente-output.model';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   user: string = enviroment.name!;
+  isTextVisible: boolean = false;
+
+  constructor(private router: Router) { }
+
+
+  ngOnInit(): void {
+  }
 
 }

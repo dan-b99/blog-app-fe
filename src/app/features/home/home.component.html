@@ -1,5 +1,12 @@
-<div class="container">
+<div class="container mb-3">
     <p>Bentornato, {{user}}</p>
     <hr>
-    <app-ritch-text></app-ritch-text>
+    <div class="row">
+        <div class="col-6">
+            <button class="btn btn-primary" (click)="!isTextVisible">Condividi le tue idee</button>
+        </div>
+        <div class="row" *ngIf="isTextVisible">
+            <app-ritch-text></app-ritch-text>
+        </div>
+    </div>
 </div>

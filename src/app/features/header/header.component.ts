@@ -1,5 +1,4 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { enviroment } from 'src/app/shared/enviroment';
 
 @Component({
@@ -14,16 +13,16 @@ import { enviroment } from 'src/app/shared/enviroment';
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
       <li class="nav-item">
-        <a *ngIf="userId" class="nav-link" routerLink="home">Home</a>
+        <a *ngIf="userId" class="nav-link active" routerLink="home">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="userId ? 'logout' : 'login'" [innerText]="userId ? 'Logout' : 'Accedi'"></a>
+        <a class="nav-link active" [routerLink]="userId ? 'logout' : 'login'" [innerText]="userId ? 'Logout' : 'Accedi'"></a>
       </li>
       <li class="nav-item">
-          <a *ngIf="!userId" class="nav-link" routerLink="signUp">Registrati</a>
+          <a *ngIf="!userId" class="nav-link active" routerLink="signUp">Registrati</a>
       </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
+          <a class="nav-link active" href="#">About</a>
         </li>
         </ul>
       </div>

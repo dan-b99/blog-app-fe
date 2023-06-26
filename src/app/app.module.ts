@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './features/header/header.component';
@@ -18,6 +17,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { UserLoginComponent } from './features/user/user-login/user-login.component';
 import { HttpClientModule } from '@angular/common/http';
+import { UserLogoutComponent } from './features/user/user-logout/user-logout.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +26,8 @@ import { HttpClientModule } from '@angular/common/http';
     HomeComponent,
     RitchTextComponent,
     UserRegistrationComponent,
-    UserLoginComponent
+    UserLoginComponent,
+    UserLogoutComponent
   ],
   imports: [
     BrowserModule,
