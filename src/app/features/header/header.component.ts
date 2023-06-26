@@ -25,6 +25,11 @@ import { enviroment } from 'src/app/shared/enviroment';
           <a class="nav-link active" href="#">About</a>
         </li>
         </ul>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" [innerText]="name ? 'Bentornato, ' + name : ''"></a>
+          </li>
+        </ul>
       </div>
     </div>
   </nav>
@@ -34,6 +39,7 @@ import { enviroment } from 'src/app/shared/enviroment';
 })
 export class HeaderComponent implements OnInit {
   userId: string | null = enviroment.user_id;
+  name: string | null = enviroment.name;
   
   constructor() { }
 

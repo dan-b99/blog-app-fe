@@ -10,11 +10,19 @@ import { enviroment } from 'src/app/shared/enviroment';
 export class HomeComponent implements OnInit {
   user: string = enviroment.name!;
   isTextVisible: boolean = false;
+  formValue?: string;
 
   constructor(private router: Router) { }
 
-
-  ngOnInit(): void {
+  toggle() {
+    this.isTextVisible = !this.isTextVisible;
   }
+
+  catchData(event: string) {
+    console.log("METODO CATCH: ", event);
+    this.formValue = event;
+  }
+
+  ngOnInit(): void { }
 
 }
