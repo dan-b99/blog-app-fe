@@ -1,24 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { enviroment } from 'src/app/shared/enviroment';
 
 @Component({
   selector: 'app-header',
   template: `
   <nav class="navbar navbar-expand-lg bg-body-tertiary p-3" data-bs-theme="dark">
     <div class="container-fluid">
-      <a class="navbar-brand">BloggingApp</a>
+      <a class="navbar-brand">IDEASharing</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
       <li class="nav-item">
-        <a [ngClass]="{'nav-link': true, 'active': boolArr.isHome}" routerLink="home" (click)="isClicked($event)">Home</a>
+        <a *ngIf="userId" class="nav-link" routerLink="home">Home</a>
       </li>
       <li class="nav-item">
-        <a [ngClass]="{'nav-link': true, 'active': boolArr.isLogin}" routerLink="login" (click)="isClicked($event)">Accedi</a>
+        <a class="nav-link" [routerLink]="userId ? 'logout' : 'login'" [innerText]="userId ? 'Logout' : 'Accedi'"></a>
       </li>
       <li class="nav-item">
-          <a [ngClass]="{'nav-link': true, 'active': boolArr.isSignUp}" routerLink="signUp" (click)="isClicked($event)">Registrati</a>
+          <a *ngIf="!userId" class="nav-link" routerLink="signUp">Registrati</a>
       </li>
         <li class="nav-item">
           <a class="nav-link" href="#">About</a>
@@ -32,47 +34,11 @@ import { Component, OnInit } from '@angular/core';
   ]
 })
 export class HeaderComponent implements OnInit {
-  boolArr: menuEntries;
+  userId: string | null = enviroment.user_id;
   
-  constructor() {
-    this.boolArr = {
-      isHome: false,
-      isSignUp: true,
-      isLogin: false,
-      isAbout: false
-    };
-  }
+  constructor() { }
 
   ngOnInit(): void {
-    
+    console.log("INIZIALIZZO", this.userId);
   }
-
-  isClicked(event: any) {
-    
-    if(event.target.href.endsWith('signUp')) {
-      this.boolArr!.isHome = false;
-      this.boolArr!.isAbout = false;
-      this.boolArr!.isLogin = false;
-      this.boolArr!.isSignUp = true;
-    }
-    else if(event.target.href.endsWith('login')) {
-      this.boolArr!.isLogin = true;
-      this.boolArr!.isHome = false;
-      this.boolArr!.isAbout = false;
-      this.boolArr!.isSignUp = false;
-    }
-    else if(event.target.href.endsWith('home')) {
-      this.boolArr!.isHome = true;
-      this.boolArr!.isAbout = false;
-      this.boolArr!.isLogin = false;
-      this.boolArr!.isSignUp = false;
-    }
-  }
-}
-
-interface menuEntries {
-  isHome: boolean,
-  isSignUp: boolean,
-  isLogin: boolean,
-  isAbout: boolean
 }
