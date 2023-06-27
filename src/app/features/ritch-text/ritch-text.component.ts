@@ -1,5 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import Quill from 'quill';
+import BlotFormatter from 'quill-blot-formatter';
+Quill.register('modules/blotFormatter', BlotFormatter);
 
 @Component({
   selector: 'app-ritch-text',
@@ -7,10 +10,10 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
     <div class="container-fluid">
       <form [formGroup]="form">
         <div class="row">
-          <p-editor formControlName="titolo" [style]="{'height': '50px'}"></p-editor>
+          <p-editor formControlName="titolo" [style]="{'max-height': '60px'}"></p-editor>
         </div>
         <div class="row my-2">
-          <p-editor formControlName="corpo" [style]="{'height': '120px'}"></p-editor>
+          <p-editor formControlName="corpo" [style]="{'height': '40vh'}" [modules]="configModuleBody"></p-editor>
         </div>
         <button class="btn btn-secondary btm-sm" (click)="send()">Send</button>
       </form>
@@ -22,6 +25,9 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 export class RitchTextComponent {
   form: FormGroup;
   @Output() event: EventEmitter<FormGroup>;
+  configModuleBody: any = {
+    blotFormatter: { }
+  }
 
   constructor(private fb: FormBuilder) {
     this.form = fb.group({

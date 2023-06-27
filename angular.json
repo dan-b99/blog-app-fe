@@ -36,7 +36,8 @@
             ],
             "scripts": [
               "node_modules/quill/dist/quill.min.js",
-              "node_modules/quill/dist/quill.core.js"
+              "node_modules/quill/dist/quill.core.js",
+              "node_modules/quill-blot-formatter/dist/quill-blot-formatter.min.js"
             ]
           },
           "configurations": {
