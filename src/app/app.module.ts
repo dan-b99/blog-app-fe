@@ -4,8 +4,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './features/header/header.component';
 import { HomeComponent } from './features/home/home.component';
-import { QuillModule } from 'ngx-quill';
-import { RitchTextComponent } from './features/ritch-text/ritch-text.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserRegistrationComponent } from './features/user/user-registration/user-registration.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -18,21 +16,22 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { UserLoginComponent } from './features/user/user-login/user-login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { UserLogoutComponent } from './features/user/user-logout/user-logout.component';
+import { RitchTextComponent } from './features/ritch-text/ritch-text.component';
+import { EditorModule } from 'primeng/editor';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    HomeComponent,
-    RitchTextComponent,
     UserRegistrationComponent,
     UserLoginComponent,
-    UserLogoutComponent
+    UserLogoutComponent,
+    HomeComponent,
+    RitchTextComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    QuillModule.forRoot(),
     HttpClientModule,
     ReactiveFormsModule,
     MatFormFieldModule,
@@ -41,7 +40,8 @@ import { UserLogoutComponent } from './features/user/user-logout/user-logout.com
     BrowserAnimationsModule,
     MatButtonModule,
     MatCardModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    EditorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

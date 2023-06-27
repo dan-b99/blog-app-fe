@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { enviroment } from 'src/app/shared/enviroment';
 
@@ -10,7 +11,7 @@ import { enviroment } from 'src/app/shared/enviroment';
 export class HomeComponent implements OnInit {
   user: string = enviroment.name!;
   isTextVisible: boolean = false;
-  formValue?: string;
+  formValues?: FormGroup;
 
   constructor(private router: Router) { }
 
@@ -18,9 +19,9 @@ export class HomeComponent implements OnInit {
     this.isTextVisible = !this.isTextVisible;
   }
 
-  catchData(event: string) {
+  catchData(event: FormGroup) {
     console.log("METODO CATCH: ", event);
-    this.formValue = event;
+    this.formValues = event;
   }
 
   ngOnInit(): void { }

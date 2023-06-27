@@ -1,57 +1,37 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-ritch-text',
   template: `
-  <div class="container pt-2">
-    <form [formGroup]="control">
-      <quill-editor class="mb-3" [styles]="{'min-height': '50px', 'width': '70vw'}" formControlName="title" [modules]="quillConfigurationTitle"></quill-editor>
-      <quill-editor [styles]="{'min-height': '120px', 'width': '70vw'}" formControlName="body" [modules]="quillConfigurationBody"></quill-editor>
-      <button class="btn btn-secondary btn-sm mt-2" (click)="submit()">Invia</button>
-    </form>
-  </div>
+    <div class="container-fluid">
+      <form [formGroup]="form">
+        <div class="row">
+          <p-editor formControlName="titolo" [style]="{'height': '50px'}"></p-editor>
+        </div>
+        <div class="row my-2">
+          <p-editor formControlName="corpo" [style]="{'height': '120px'}"></p-editor>
+        </div>
+        <button class="btn btn-secondary btm-sm" (click)="send()">Send</button>
+      </form>
+    </div>
   `,
   styles: [
-    ` 
-    `
   ]
 })
-export class RitchTextComponent implements OnInit {
-  control: FormGroup;
-  @Output() subEvent: EventEmitter<any>;
-  quillConfigurationBody = {
-    toolbar: [
-      ['bold', 'italic', 'underline', 'strike'],
-      ['blockquote', 'code-block'],
-      [{ list: 'ordered' }, { list: 'bullet' }],
-      [{ header: [1, 2, 3, 4, 5, 6, false] }],
-      [{ color: [] }, { background: [] }],
-      ['link'],
-      ['clean'],
-    ]
-  }
-  quillConfigurationTitle = {
-    toolbar: [
-      ['bold', 'italic', 'underline', 'strike'],
-      [{ header: [1, 2, 3, 4, 5, 6, false] }],
-      [{ color: [] }, { background: [] }],
-      ['clean'],
-    ]
-  }
+export class RitchTextComponent {
+  form: FormGroup;
+  @Output() event: EventEmitter<FormGroup>;
 
-  constructor(private formBuilder: FormBuilder) {
-    this.control = formBuilder.group({
-      title: new FormControl(),
-      body: new FormControl()
+  constructor(private fb: FormBuilder) {
+    this.form = fb.group({
+      titolo: new FormControl(),
+      corpo: new FormControl()
     });
-    this.subEvent = new EventEmitter();
+    this.event = new EventEmitter();
   }
 
-  ngOnInit(): void {
-  }
-
-  submit() {
-    this.subEvent.emit(this.control);
+  send() {
+    this.event.emit(this.form);
   }
 }

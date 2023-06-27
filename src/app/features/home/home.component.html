@@ -5,19 +5,19 @@
         </div>
         <div *ngIf="isTextVisible">
             <div class="row">
-                <app-ritch-text (subEvent)="catchData($event)"></app-ritch-text>
+                <app-ritch-text (event)="catchData($event)"></app-ritch-text>
             </div>
-            <div class="row my-3" *ngIf="formValue">
+            <div class="row my-3" *ngIf="formValues">
                 <mat-card>
                     <mat-card-header>
                       <mat-card-title-group>
-                        <mat-card-title></mat-card-title>
-                        <mat-card-subtitle></mat-card-subtitle>
-                        <img mat-card-md-image src=""  alt="Image of article">
+                        <mat-card-title>
+                            <span [innerHTML]="formValues.value.titolo"></span>
+                        </mat-card-title>
                       </mat-card-title-group>
                     </mat-card-header>
                     <mat-card-content>
-                        <span></span>
+                        <div [innerHTML]="formValues.value.corpo"></div>
                     </mat-card-content>
                   </mat-card>
             </div>
