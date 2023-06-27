@@ -4,10 +4,13 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-ritch-text',
   template: `
+  <div class="container pt-2">
     <form [formGroup]="control">
-      <quill-editor [styles]="{'min-height': '120px', 'width': '70vw'}" formControlName="editor" [modules]="quillConfiguration"></quill-editor>
+      <quill-editor class="mb-3" [styles]="{'min-height': '50px', 'width': '70vw'}" formControlName="title" [modules]="quillConfigurationTitle"></quill-editor>
+      <quill-editor [styles]="{'min-height': '120px', 'width': '70vw'}" formControlName="body" [modules]="quillConfigurationBody"></quill-editor>
       <button class="btn btn-secondary btn-sm mt-2" (click)="submit()">Invia</button>
     </form>
+  </div>
   `,
   styles: [
     ` 
@@ -16,8 +19,8 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 })
 export class RitchTextComponent implements OnInit {
   control: FormGroup;
-  @Output() subEvent: EventEmitter<string>;
-  quillConfiguration = {
+  @Output() subEvent: EventEmitter<any>;
+  quillConfigurationBody = {
     toolbar: [
       ['bold', 'italic', 'underline', 'strike'],
       ['blockquote', 'code-block'],
@@ -28,10 +31,19 @@ export class RitchTextComponent implements OnInit {
       ['clean'],
     ]
   }
+  quillConfigurationTitle = {
+    toolbar: [
+      ['bold', 'italic', 'underline', 'strike'],
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      [{ color: [] }, { background: [] }],
+      ['clean'],
+    ]
+  }
 
   constructor(private formBuilder: FormBuilder) {
     this.control = formBuilder.group({
-      editor: new FormControl()
+      title: new FormControl(),
+      body: new FormControl()
     });
     this.subEvent = new EventEmitter();
   }
@@ -40,7 +52,6 @@ export class RitchTextComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.control.controls['editor'].value);
-    this.subEvent.emit(this.control.controls['editor'].value);
+    this.subEvent.emit(this.control);
   }
 }
