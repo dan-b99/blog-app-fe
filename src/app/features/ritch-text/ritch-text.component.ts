@@ -10,10 +10,10 @@ Quill.register('modules/blotFormatter', BlotFormatter);
     <div class="container-fluid">
       <form [formGroup]="form">
         <div class="row">
-          <p-editor formControlName="titolo" [style]="{'max-height': '60px'}"></p-editor>
+          <p-editor formControlName="titolo" [style]="{'min-height': '60px'}"></p-editor>
         </div>
         <div class="row my-2">
-          <p-editor formControlName="corpo" [style]="{'height': '40vh'}" [modules]="configModuleBody"></p-editor>
+          <p-editor formControlName="corpo" [style]="{'min-height': '120px'}" [modules]="configModuleBody"></p-editor>
         </div>
         <button class="btn btn-secondary btm-sm" (click)="send()">Send</button>
       </form>
