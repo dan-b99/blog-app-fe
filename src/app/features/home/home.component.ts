@@ -17,6 +17,7 @@ export class HomeComponent {
   jsonParsed?: any;
   imgVal?: any;
   imgHtml?: any;
+  bodyExcImgHtml?: any;
 
   constructor(private router: Router) { }
 
@@ -25,16 +26,24 @@ export class HomeComponent {
   }
 
   private async jsonConv() {
-    const res = await HTMLParser(this.formValues!.value.corpo, false);
-    console.log("CONV", res);
-    this.jsonParsed = res;
+    this.jsonParsed = await HTMLParser(this.formValues!.value.corpo, false);
   }
 
   private async imgHtmlConv() {
     console.log("CORPO JSON", this.jsonParsed);
-    this.imgVal = this.jsonParsed.content.find((element: any) => element.type === 'img');
-    console.log("IMG ATTRIBUTES", this.imgVal);
-    this.imgHtml = await JSONToHTML(this.imgVal, true);
+    if(this.jsonParsed.content.find((element: any) => element.type === 'img')) {
+      this.imgVal = this.jsonParsed.content.find((element: any) => element.type === 'img');
+      console.log("IMG ATTRIBUTES", this.imgVal);
+      this.imgHtml = await JSONToHTML(this.imgVal, true);
+    }
+    await this.bodyConv();
+  }
+
+  private async bodyConv() {
+    const bodyWithoutImg = JSON.parse(JSON.stringify(this.jsonParsed));
+    const idxToRemove = bodyWithoutImg.content.findIndex((val: any) => val.type === 'img');
+    bodyWithoutImg.content.splice(idxToRemove);
+    this.bodyExcImgHtml = await JSONToHTML(bodyWithoutImg, true);
   }
 
   async catchData(event: FormGroup) {
