@@ -41,8 +41,10 @@ export class HomeComponent {
 
   private async bodyConv() {
     const bodyWithoutImg = JSON.parse(JSON.stringify(this.jsonParsed));
-    const idxToRemove = bodyWithoutImg.content.findIndex((val: any) => val.type === 'img');
-    bodyWithoutImg.content.splice(idxToRemove);
+    if(this.jsonParsed.content.find((element: any) => element.type === 'img')) {
+      const idxToRemove = bodyWithoutImg.content.findIndex((val: any) => val.type === 'img');
+      bodyWithoutImg.content.splice(idxToRemove);
+    }
     this.bodyExcImgHtml = await JSONToHTML(bodyWithoutImg, true);
   }
 
