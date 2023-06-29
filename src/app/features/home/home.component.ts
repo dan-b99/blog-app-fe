@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { enviroment } from 'src/app/shared/enviroment';
-import { JSONToHTML, JSONType } from 'html-to-json-parser'; 
-import HTMLParser from 'html-to-json-parser';
+import parse from 'html-dom-parser';
 
 @Component({
   selector: 'app-home',
@@ -16,44 +15,40 @@ export class HomeComponent {
   formValues?: FormGroup;
   jsonParsed?: any;
   imgVal?: any;
-  imgHtml?: any;
-  bodyExcImgHtml?: any;
+  contentBody?: any;
 
   constructor(private router: Router) { }
 
   toggle() {
     this.isTextVisible = !this.isTextVisible;
   }
-
-  private async jsonConv() {
-    this.jsonParsed = await HTMLParser(this.formValues!.value.corpo, false);
-  }
-
-  private async imgHtmlConv() {
-    console.log("CORPO JSON", this.jsonParsed);
-    if(this.jsonParsed.content.find((element: any) => element.type === 'img')) {
-      this.imgVal = this.jsonParsed.content.find((element: any) => element.type === 'img');
-      console.log("IMG ATTRIBUTES", this.imgVal);
-      this.imgHtml = await JSONToHTML(this.imgVal, true);
-    }
-    await this.bodyConv();
-  }
-
-  private async bodyConv() {
-    const bodyWithoutImg = JSON.parse(JSON.stringify(this.jsonParsed));
-    if(this.jsonParsed.content.find((element: any) => element.type === 'img')) {
-      const idxToRemove = bodyWithoutImg.content.findIndex((val: any) => val.type === 'img');
-      bodyWithoutImg.content.splice(idxToRemove);
-    }
-    this.bodyExcImgHtml = await JSONToHTML(bodyWithoutImg, true);
-  }
-
-  async catchData(event: FormGroup) {
+  
+  catchData(event: FormGroup) {
     console.log("METODO CATCH: ", event);
     this.formValues = event;
-    await this.jsonConv();
-    await this.imgHtmlConv();
+    this.jsonConv();
+    this.imgSearch();
+    this.bodyAssignment();
+  }
+  
+  private jsonConv() {
+    this.jsonParsed = parse(this.formValues!.value.corpo);
+    console.log("PARSED", this.jsonParsed);
   }
 
+  private imgSearch() {
+    this.jsonParsed.map(
+      (singleObj: any) => {
+        if(singleObj.children.find((element: any) => element.name === 'img')) {
+          this.imgVal = singleObj.children;
+        }
+      }
+    );
+    console.log("CERCO IMMAGINE", this.imgVal);
+  }
 
+  private bodyAssignment() {
+    this.contentBody = this.jsonParsed.filter((element: any) => element.children[0].name !== 'img');
+    console.log("CORPO", this.contentBody);
+  }
 }
