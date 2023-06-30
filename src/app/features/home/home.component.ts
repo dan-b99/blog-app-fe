@@ -10,33 +10,12 @@ import { enviroment } from 'src/app/shared/enviroment';
 })
 export class HomeComponent {
   user: string = enviroment.name!;
-  isTextVisible: boolean = false;
-  formValues?: FormGroup;
-  regex = /<img[^>]*>/;
-  imgHTML?: string;
-  bodyHTML?: string;
+  isClicked: boolean = false;
 
   constructor(private router: Router) { }
-  
-  toggle() {
-    this.isTextVisible = !this.isTextVisible;
+
+  clickMe() {
+    this.isClicked = !this.isClicked;
   }
   
-  catchData(event: FormGroup) {
-    console.log("METODO CATCH: ", event);
-    this.formValues = event;
-    this.imgSearch();
-    this.bodyAssignment();
-  }
-  
-  private imgSearch() {
-    const matchings = this.regex.exec(this.formValues?.value.corpo);
-    if(matchings) {
-      this.imgHTML = matchings[0];
-    }
-  }
-    
-    private bodyAssignment() {
-      this.bodyHTML = this.imgHTML ? this.formValues?.value.corpo.replace(this.regex, '') : this.formValues?.value.corpo;
-    }
-  }
+}

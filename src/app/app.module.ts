@@ -18,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { UserLogoutComponent } from './features/user/user-logout/user-logout.component';
 import { RitchTextComponent } from './features/ritch-text/ritch-text.component';
 import { EditorModule } from 'primeng/editor';
+import { WriteArticleComponent } from './features/write-article/write-article.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { EditorModule } from 'primeng/editor';
     UserLoginComponent,
     UserLogoutComponent,
     HomeComponent,
-    RitchTextComponent
+    RitchTextComponent,
+    WriteArticleComponent
   ],
   imports: [
     BrowserModule,

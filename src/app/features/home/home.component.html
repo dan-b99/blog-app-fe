@@ -1,27 +1,10 @@
 <div class="container m-3">
     <div class="row">
         <div class="col-2">
-            <button class="btn btn-secondary btn-sm mb-4" (click)="toggle()">Condividi le tue idee</button>
+            <button class="btn btn-secondary btn-sm mb-4" (click)="clickMe()">Condividi le tue idee</button>
         </div>
-        <div *ngIf="isTextVisible">
-            <div class="row">
-                <app-ritch-text (event)="catchData($event)"></app-ritch-text>
-            </div>
-            <div class="row my-3" *ngIf="formValues">
-                <mat-card>
-                    <mat-card-header>
-                      <mat-card-title-group>
-                        <mat-card-title>
-                            <span [innerHTML]="formValues.value.titolo" #title></span>
-                        </mat-card-title>
-                        <span mat-card-image *ngIf="imgHTML" [innerHTML]="imgHTML"></span>
-                      </mat-card-title-group>
-                    </mat-card-header>
-                    <mat-card-content>
-                        <span [innerHTML]="bodyHTML"></span>
-                    </mat-card-content>
-                  </mat-card>
-            </div>
+        <div *ngIf="isClicked">
+            <app-write-article></app-write-article>
         </div>
     </div>
 </div>
