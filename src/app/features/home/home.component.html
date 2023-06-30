@@ -12,12 +12,14 @@
                     <mat-card-header>
                       <mat-card-title-group>
                         <mat-card-title>
-                            <span [innerHTML]="formValues.value.titolo"></span>
+                            <span [innerHTML]="formValues.value.titolo" #title></span>
                         </mat-card-title>
-                        <span mat-card-image></span>
+                        <img mat-card-image #imgTest>
                       </mat-card-title-group>
                     </mat-card-header>
-                    <mat-card-content></mat-card-content>
+                    <mat-card-content>
+                        <span #testo>{{formValues.value.corpo | json}}</span>
+                    </mat-card-content>
                   </mat-card>
             </div>
         </div>

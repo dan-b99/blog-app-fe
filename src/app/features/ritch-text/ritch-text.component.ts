@@ -10,12 +10,15 @@ Quill.register('modules/blotFormatter', BlotFormatter);
     <div class="container-fluid">
       <form [formGroup]="form">
         <div class="row">
-          <p-editor formControlName="titolo" [style]="{'min-height': '60px'}"></p-editor>
+          <p-editor formControlName="titolo" [style]="{'min-height': '60px'}" placeholder="Titolo..."></p-editor>
         </div>
         <div class="row my-2">
-          <p-editor formControlName="corpo" [style]="{'min-height': '120px'}" [modules]="configModuleBody"></p-editor>
+          <p-editor formControlName="corpo" [style]="{'min-height': '120px'}" [modules]="configModuleBody" placeholder="Testo..."></p-editor>
         </div>
-        <button class="btn btn-secondary btm-sm" (click)="send()">Send</button>
+        <div class="row mb-2">
+          <p-editor formControlName="tags" [style]="{'min-height': '75px'}" placeholder="Inserisci tags..."></p-editor>
+        </div>
+        <button class="btn btn-secondary btm-sm" (click)="send()">Invia</button>
       </form>
     </div>
   `,
@@ -32,7 +35,8 @@ export class RitchTextComponent {
   constructor(private fb: FormBuilder) {
     this.form = fb.group({
       titolo: new FormControl(),
-      corpo: new FormControl()
+      corpo: new FormControl(),
+      tags: new FormControl()
     });
     this.event = new EventEmitter();
   }
