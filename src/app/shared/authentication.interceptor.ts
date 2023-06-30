@@ -8,14 +8,14 @@ import {
 import { Observable } from 'rxjs';
 
 @Injectable()
-export class AuthenticationIntInterceptor implements HttpInterceptor {
+export class AuthenticationInterceptor implements HttpInterceptor {
 
   constructor() {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    if(!request.headers.get("skip")) {
+    if(!(request.headers.get("skip"))) {
       request = request.clone({
-        headers: request.headers.set("Authorization", "Bearer " + localStorage.getItem("jwt"))
+        headers: request.headers.append("Authorization", "Bearer " + localStorage.getItem("jwt"))
       });
     }
     return next.handle(request);

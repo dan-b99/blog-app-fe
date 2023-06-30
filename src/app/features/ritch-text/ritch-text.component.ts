@@ -7,7 +7,7 @@ Quill.register('modules/blotFormatter', BlotFormatter);
 @Component({
   selector: 'app-ritch-text',
   template: `
-    <div class="container-fluid">
+    <div class="d-flex align-items-center justify-content-left mt-5 ms-5">
       <form [formGroup]="form">
         <div class="row">
           <p-editor formControlName="titolo" [style]="{'min-height': '60px'}" placeholder="Titolo..."></p-editor>

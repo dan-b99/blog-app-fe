@@ -1,10 +1,15 @@
 <div class="container m-3">
     <div class="row">
-        <div class="col-2">
+        <div class="col-6">
             <button class="btn btn-secondary btn-sm mb-4" (click)="clickMe()">Condividi le tue idee</button>
         </div>
-        <div *ngIf="isClicked">
-            <app-write-article></app-write-article>
-        </div>
     </div>
+    <div *ngIf="!articles; else emptyList">
+        <span *ngFor="let art of articles">
+
+        </span>
+    </div>
+    <ng-template #emptyList>
+        <h2 class="d-flex justify-content-center">Non ci sono ancora articoli da visualizzare...</h2>
+    </ng-template>
 </div>

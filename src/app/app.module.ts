@@ -14,11 +14,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { UserLoginComponent } from './features/user/user-login/user-login.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { UserLogoutComponent } from './features/user/user-logout/user-logout.component';
 import { RitchTextComponent } from './features/ritch-text/ritch-text.component';
 import { EditorModule } from 'primeng/editor';
 import { WriteArticleComponent } from './features/write-article/write-article.component';
+import { AuthenticationInterceptor } from './shared/authentication.interceptor';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,11 @@ import { WriteArticleComponent } from './features/write-article/write-article.co
     MatSnackBarModule,
     EditorModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthenticationInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
