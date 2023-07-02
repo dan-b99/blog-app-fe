@@ -26,6 +26,5 @@ export class HomeComponent implements OnInit {
       next: (val: VisualizzaArticoloDTO[]) => this.articles = val,
       error: (err: HttpErrorResponse) => this.snackbar.open(err.error.message)
     });
-    console.log("FINE INIT", this.articles);
   }
 }

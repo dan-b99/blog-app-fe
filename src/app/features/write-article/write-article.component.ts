@@ -5,7 +5,7 @@ import { BlogService } from 'src/app/shared/blog.service';
 @Component({
   selector: 'app-write-article',
   template: `
-  <div class=" d-flex justify-content-center mt-3">
+  <div class=" d-flex justify-content-center mt-3 mb-5">
     <h1><strong>Pubblica il tuo prossimo articolo!</strong></h1>
   </div>
    <div>
@@ -32,6 +32,7 @@ export class WriteArticleComponent {
     }
     this.imgSearch();
     this.bodyAssignment();
+    console.log(`FORM ${this.formValues}, BODY ${this.bodyHTML}, TAGS ${this.formValues.value.tags} FINE`);
   }
   
   private imgSearch() {
