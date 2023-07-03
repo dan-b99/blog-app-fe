@@ -20,6 +20,8 @@ import { RitchTextComponent } from './features/ritch-text/ritch-text.component';
 import { EditorModule } from 'primeng/editor';
 import { WriteArticleComponent } from './features/write-article/write-article.component';
 import { AuthenticationInterceptor } from './shared/authentication.interceptor';
+import { ValidationComponent } from './features/admin/validation/validation.component';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { AuthenticationInterceptor } from './shared/authentication.interceptor';
     UserLogoutComponent,
     HomeComponent,
     RitchTextComponent,
-    WriteArticleComponent
+    WriteArticleComponent,
+    ValidationComponent
   ],
   imports: [
     BrowserModule,
@@ -40,6 +43,7 @@ import { AuthenticationInterceptor } from './shared/authentication.interceptor';
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
+    MatSelectModule,
     BrowserAnimationsModule,
     MatButtonModule,
     MatCardModule,

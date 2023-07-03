@@ -15,7 +15,6 @@ export class AuthenticationService {
   isLogged(): boolean {
     const jwt = localStorage.getItem("jwt");
     if(jwt) {
-      console.log(jwt);
       const jwtParts = jwt.split(".");
       const decodedPayload = JSON.parse(atob(jwtParts[1]));
       const expDate = new Date(decodedPayload.exp * 1000);

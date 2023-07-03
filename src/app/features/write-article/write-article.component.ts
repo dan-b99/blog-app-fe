@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { BlogService } from 'src/app/shared/blog.service';
+import { AggiuntaArticoloDTO } from 'src/app/shared/models/blog/aggiunta-articolo-dto.model';
+import { AggiuntaTagDTO } from 'src/app/shared/models/blog/aggiunta-tag-dto.model';
 
 @Component({
   selector: 'app-write-article',
@@ -33,6 +35,7 @@ export class WriteArticleComponent {
     this.imgSearch();
     this.bodyAssignment();
     console.log(`FORM ${this.formValues}, BODY ${this.bodyHTML}, TAGS ${this.formValues.value.tags} FINE`);
+    this.sendData();
   }
   
   private imgSearch() {
@@ -44,5 +47,21 @@ export class WriteArticleComponent {
     
   private bodyAssignment() {
     this.bodyHTML = this.imgHTML ? this.formValues?.value.corpo.replace(this.regex, '') : this.formValues?.value.corpo;
+  }
+
+  private sendData() {
+    const tagArr: AggiuntaTagDTO[] = [];
+    if(this.tags) {
+      this.tags[0] = this.tags[0].replace(/<p>/g, "");
+      this.tags[this.tags.length-1] = this.tags[this.tags.length-1].replace(/<\/p>/g, "");
+      this.tags.forEach((val: string) => tagArr.push({nome: val}));
+    }
+    console.log(tagArr);
+    // const arg: AggiuntaArticoloDTO = {
+    //   titolo: this.formValues?.value.titolo,
+    //   contenuto: this.formValues?.value.corpo,
+    //   tags: tagArr ? tagArr : [],
+    //   categorie: 
+    // }
   }
 }

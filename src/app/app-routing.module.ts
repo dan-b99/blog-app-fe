@@ -6,6 +6,7 @@ import { UserLoginComponent } from './features/user/user-login/user-login.compon
 import { UserLogoutComponent } from './features/user/user-logout/user-logout.component';
 import { WriteArticleComponent } from './features/write-article/write-article.component';
 import { authenticationGuard } from './shared/authentication.guard';
+import { ValidationComponent } from './features/admin/validation/validation.component';
 
 const routes: Routes = [
   {path: "home", component: HomeComponent, canActivate: [authenticationGuard]},
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path: 'login', component: UserLoginComponent},
   {path: 'logout', component: UserLogoutComponent},
   {path: 'write', component: WriteArticleComponent, canActivate: [authenticationGuard]},
+  {path: 'validate', component: ValidationComponent, canActivate: [authenticationGuard]},
   {path: '**', redirectTo: 'signUp'}
 ];
 
