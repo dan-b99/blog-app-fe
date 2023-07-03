@@ -7,15 +7,17 @@ import { UserLogoutComponent } from './features/user/user-logout/user-logout.com
 import { WriteArticleComponent } from './features/write-article/write-article.component';
 import { authenticationGuard } from './shared/authentication.guard';
 import { ValidationComponent } from './features/admin/validation/validation.component';
+import { AddCategoriesComponent } from './features/admin/add-categories/add-categories.component';
 
 const routes: Routes = [
   {path: "home", component: HomeComponent, canActivate: [authenticationGuard]},
   {path: 'signUp', component: UserRegistrationComponent},
   {path: 'login', component: UserLoginComponent},
   {path: 'logout', component: UserLogoutComponent},
+  {path: 'add-category', component: AddCategoriesComponent, canActivate: [authenticationGuard]},
   {path: 'write', component: WriteArticleComponent, canActivate: [authenticationGuard]},
   {path: 'validate', component: ValidationComponent, canActivate: [authenticationGuard]},
-  {path: '**', redirectTo: 'signUp'}
+  {path: '**', redirectTo: 'home'}
 ];
 
 @NgModule({

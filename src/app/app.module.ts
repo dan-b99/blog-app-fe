@@ -22,6 +22,8 @@ import { WriteArticleComponent } from './features/write-article/write-article.co
 import { AuthenticationInterceptor } from './shared/authentication.interceptor';
 import { ValidationComponent } from './features/admin/validation/validation.component';
 import { MatSelectModule } from '@angular/material/select';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { AddCategoriesComponent } from './features/admin/add-categories/add-categories.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,8 @@ import { MatSelectModule } from '@angular/material/select';
     HomeComponent,
     RitchTextComponent,
     WriteArticleComponent,
-    ValidationComponent
+    ValidationComponent,
+    AddCategoriesComponent
   ],
   imports: [
     BrowserModule,
@@ -44,6 +47,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatIconModule,
     MatInputModule,
     MatSelectModule,
+    MultiSelectModule,
     BrowserAnimationsModule,
     MatButtonModule,
     MatCardModule,

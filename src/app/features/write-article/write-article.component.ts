@@ -56,12 +56,12 @@ export class WriteArticleComponent {
       this.tags[this.tags.length-1] = this.tags[this.tags.length-1].replace(/<\/p>/g, "");
       this.tags.forEach((val: string) => tagArr.push({nome: val}));
     }
-    console.log(tagArr);
-    // const arg: AggiuntaArticoloDTO = {
-    //   titolo: this.formValues?.value.titolo,
-    //   contenuto: this.formValues?.value.corpo,
-    //   tags: tagArr ? tagArr : [],
-    //   categorie: 
-    // }
+    let articolo: AggiuntaArticoloDTO = {
+      titolo: this.formValues?.value.titolo,
+      contenuto: this.formValues?.value.corpo,
+      categorie: this.formValues?.value.categoria,
+      tags: tagArr
+    }
+    console.log(articolo); 
   }
 }
