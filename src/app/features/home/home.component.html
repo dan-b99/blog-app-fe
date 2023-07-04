@@ -1,13 +1,9 @@
 <div class="container m-3">
     <div class="d-flex justify-content-left">
-        <div class="row">
-            <button class="btn btn-secondary btn-sm mb-4 col" (click)="clickMe()">Condividi le tue idee</button>
-        </div>
-    </div>
-    <div *ngIf="!articles; else emptyList">
-        <span *ngFor="let art of articles">
+        <div *ngIf="!articles; else emptyList">
+            <span *ngFor="let art of articles">
             
-        </span>
+             </span>
     </div>
     <ng-template #emptyList>
         <h2 class="d-flex justify-content-center">Non ci sono ancora articoli da visualizzare...</h2>

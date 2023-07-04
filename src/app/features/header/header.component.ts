@@ -1,5 +1,9 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { enviroment } from 'src/app/shared/enviroment';
+import { RuoloOutputDTO } from 'src/app/shared/models/auth/ruolo-output-dto.model';
+import { SnackBarService } from 'src/app/shared/snack-bar.service';
+import { UserService } from 'src/app/shared/user.service';
 
 @Component({
   selector: 'app-header',
@@ -12,16 +16,25 @@ import { enviroment } from 'src/app/shared/enviroment';
       </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
-      <li class="nav-item">
-        <a *ngIf="userId" class="nav-link active" routerLink="home">Home</a>
-      </li>
+        <li class="nav-item">
+          <a class="nav-link active" *ngIf="userId" routerLink="home">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" *ngIf="userId" routerLink="write">Write something</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" *ngIf="roleAdmin" routerLink="validate">Validations</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" *ngIf="roleAdmin" routerLink="add-category">Add Categories</a>
+        </li>
       <li class="nav-item">
         <a class="nav-link active" [routerLink]="userId ? 'logout' : 'login'" [innerText]="userId ? 'Logout' : 'Accedi'"></a>
       </li>
       <li class="nav-item">
           <a *ngIf="!userId" class="nav-link active" routerLink="signUp">Registrati</a>
       </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="!userId">
           <a class="nav-link active" href="#">About</a>
         </li>
         </ul>
@@ -40,10 +53,29 @@ import { enviroment } from 'src/app/shared/enviroment';
 export class HeaderComponent implements OnInit {
   userId: string | null = enviroment.user_id;
   name: string | null = enviroment.name;
+  roleUser: string | null = null;
+  roleAdmin: string | null = null;
   
-  constructor() { }
+  constructor(private userService: UserService, private sb: SnackBarService) { }
 
   ngOnInit(): void {
     console.log("INIZIALIZZO", this.userId);
+    if(this.userId) {
+      this.getRoles();
+    }
+  }
+
+  private getRoles() {
+    this.userService.findRoles().subscribe({
+      next: (arr: RuoloOutputDTO[]) => arr.forEach((val: RuoloOutputDTO) => {
+        if(val.authority === 'ROLE_ADMIN') {
+          this.roleAdmin = val.authority;
+        }
+        else if(val.authority === 'ROLE_USER') {
+          this.roleUser = val.authority;
+        }
+      }),
+      error: (err: HttpErrorResponse) => this.sb.open(err.error.message)
+    });
   }
 }

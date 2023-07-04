@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import Quill from 'quill';
 import BlotFormatter from 'quill-blot-formatter';
 import { BlogService } from 'src/app/shared/blog.service';
@@ -14,7 +14,7 @@ Quill.register('modules/blotFormatter', BlotFormatter);
     <div class="container-fluid d-flex align-items-center">
       <form [formGroup]="form" class="form-control p-3 m-2">
         <div class="row">
-          <p-editor formControlName="titolo" [style]="{'min-height': '60px'}" placeholder="Titolo...">
+          <p-editor formControlName="titolo" [style]="{'min-height': '60px'}" placeholder="Titolo..." required>
             <ng-template pTemplate="header">
               <select class="ql-size">
                 <option selected></option>
@@ -30,7 +30,7 @@ Quill.register('modules/blotFormatter', BlotFormatter);
           </p-editor>
         </div>
         <div class="row my-4">
-          <p-editor formControlName="corpo" [style]="{'min-height': '120px'}" [modules]="configModuleBody" placeholder="Testo..."></p-editor>
+          <p-editor formControlName="corpo" [style]="{'min-height': '120px'}" [modules]="configModuleBody" placeholder="Testo..." required></p-editor>
         </div>
         <div class="row mb-4">
           <p-editor formControlName="tags" [style]="{'min-height': '75px'}" placeholder="Inserisci tags separati da virgola...">
@@ -42,10 +42,10 @@ Quill.register('modules/blotFormatter', BlotFormatter);
           </p-editor>
         </div>
         <div class="row mb-4 col-9">
-          <p-multiSelect [options]="categories" formControlName="categoria" defaultLabel="Categorie" optionLabel="nome" optionValue="id" [showHeader]="false" [showClear]="true"></p-multiSelect>
+          <p-multiSelect [options]="categories" formControlName="categoria" defaultLabel="Categorie" optionLabel="nome" optionValue="id" required [showHeader]="false" [showClear]="true"></p-multiSelect>
         </div>
         <div class="row justify-content-center">
-          <button class="btn btn-secondary btm-sm col-3" (click)="send()">Invia</button>
+          <button class="btn btn-secondary btm-sm col-3" (click)="send()" [disabled]="form.invalid">Invia</button>
         </div>
       </form>
     </div>
