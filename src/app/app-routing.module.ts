@@ -8,6 +8,7 @@ import { WriteArticleComponent } from './features/write-article/write-article.co
 import { authenticationGuard } from './shared/authentication.guard';
 import { ValidationComponent } from './features/admin/validation/validation.component';
 import { AddCategoriesComponent } from './features/admin/add-categories/add-categories.component';
+import { ReadArticleComponent } from './features/read-article/read-article.component';
 
 const routes: Routes = [
   {path: "home", component: HomeComponent, canActivate: [authenticationGuard]},
@@ -16,6 +17,7 @@ const routes: Routes = [
   {path: 'logout', component: UserLogoutComponent},
   {path: 'add-category', component: AddCategoriesComponent, canActivate: [authenticationGuard]},
   {path: 'write', component: WriteArticleComponent, canActivate: [authenticationGuard]},
+  {path: 'read/:id', component: ReadArticleComponent, canActivate: [authenticationGuard]},
   {path: 'validate', component: ValidationComponent, canActivate: [authenticationGuard]},
   {path: '**', redirectTo: 'home'}
 ];

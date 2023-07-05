@@ -21,8 +21,11 @@ export class HomeComponent implements OnInit {
 
   constructor(private router: Router, private blogService: BlogService, private snackbar: SnackBarService) { }
 
-  private imgSearch() {
-  //   console.log("ARTICOLI", this.articles);
+  textSeparator(content: string): string {
+    return content.length > 155 ? content.slice(0, 156) + '\n...' : content;
+  }
+
+  // private imgSearch() {
   //   if(this.articles) {
   //     const contenuto: string[] = this.articles.flatMap((val: VisualizzaArticoloDTO) => val.contenuto);
   //     let matchings = null;
@@ -32,11 +35,7 @@ export class HomeComponent implements OnInit {
   //       this.imgHTML = matchings[0];
   //     }
   //   }
-  }
-    
-  private bodyAssignment() {
-    //this.bodyHTML = this.imgHTML ? this.formValues?.value.corpo.replace(this.regex, '') : this.formValues?.value.corpo;
-  }
+  // }
 
   async execSub() {
     const obs$ = this.blogService.getArticles();
@@ -46,5 +45,11 @@ export class HomeComponent implements OnInit {
   async ngOnInit() {
     await this.execSub();
     console.log("ARTICOLI", this.articles);
+    console.log("LUNGHEZZA", this.articles![0].contenuto.replace(/<[^>]*>/g, '').length);
+    // this.imgSearch();
+  }
+
+  reading(id: number) {
+    this.router.navigateByUrl("/read/" + id);
   }
 }

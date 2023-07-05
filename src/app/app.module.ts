@@ -25,6 +25,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { AddCategoriesComponent } from './features/admin/add-categories/add-categories.component';
 import { QuillModule } from 'ngx-quill';
+import { ReadArticleComponent } from './features/read-article/read-article.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { QuillModule } from 'ngx-quill';
     RitchTextComponent,
     WriteArticleComponent,
     ValidationComponent,
-    AddCategoriesComponent
+    AddCategoriesComponent,
+    ReadArticleComponent
   ],
   imports: [
     BrowserModule,

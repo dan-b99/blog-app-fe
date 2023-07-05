@@ -27,6 +27,10 @@ export class BlogService {
     return this.http.post<void>(enviroment.endpoint + "/articles/add", art);
   }
 
+  getArticleById(id: number): Observable<VisualizzaArticoloDTO> {
+    return this.http.get<VisualizzaArticoloDTO>(enviroment.endpoint + "/articles/" + id);
+  }
+
   getArticles(): Observable<VisualizzaArticoloDTO[]> {
     return this.http.get<VisualizzaArticoloDTO[]>(enviroment.endpoint + "/articles/all");
   }
