@@ -24,6 +24,7 @@ import { ValidationComponent } from './features/admin/validation/validation.comp
 import { MatSelectModule } from '@angular/material/select';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { AddCategoriesComponent } from './features/admin/add-categories/add-categories.component';
+import { QuillModule } from 'ngx-quill';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { AddCategoriesComponent } from './features/admin/add-categories/add-cate
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    QuillModule.forRoot(),
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,

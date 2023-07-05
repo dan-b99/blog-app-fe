@@ -13,22 +13,10 @@ Quill.register('modules/blotFormatter', BlotFormatter);
   template: `
     <div class="container-fluid d-flex align-items-center">
       <form [formGroup]="form" class="form-control p-3 m-2">
-        <div class="row">
-          <p-editor formControlName="titolo" [style]="{'min-height': '60px'}" placeholder="Titolo..." required>
-            <ng-template pTemplate="header">
-              <select class="ql-size">
-                <option selected></option>
-                <option value="large"></option>
-                <option value="huge"></option>
-              </select>
-              <span class="ql-formats">
-                <button type="button" class="ql-bold" aria-label="Bold"></button>
-                <button type="button" class="ql-italic" aria-label="Italic"></button>
-                <button type="button" class="ql-underline" aria-label="Underline"></button>
-              </span>
-            </ng-template>
-          </p-editor>
+        <div class="row mb-4">
+          <quill-editor formControlName="titolo" [modules]="configModuleTitle" [styles]="{'min-height': '100'}" placeholder="Titolo qui..."></quill-editor>
         </div>
+        <br>
         <div class="row my-4">
           <p-editor formControlName="corpo" [style]="{'min-height': '120px'}" [modules]="configModuleBody" placeholder="Testo..." required></p-editor>
         </div>
@@ -57,6 +45,12 @@ export class RitchTextComponent implements OnInit {
   form: FormGroup;
   @Output() event: EventEmitter<FormGroup>;
   categories!: VisualizzaCategoriaDTO[];
+  configModuleTitle: any = {
+    toolbar: [
+      [{ header: [1, 2, false] }],
+      ['bold', 'italic', 'underline']
+    ]
+  }
   configModuleBody: any = {
     blotFormatter: { }
   }

@@ -1,8 +1,17 @@
 <div class="container m-3">
-    <div class="d-flex justify-content-left">
-        <div *ngIf="!articles; else emptyList">
+    <div class="container-fluid d-flex justify-content-left">
+        <div *ngIf="articles?.length; else emptyList">
             <span *ngFor="let art of articles">
-            
+                <mat-card>
+                    <mat-card-header>
+                      <mat-card-title-group>
+                        <mat-card-title [innerHTML]="art.titolo"></mat-card-title>
+                        <span mat-card-md-image></span>
+                      </mat-card-title-group>
+                    </mat-card-header>
+                    <mat-card-content>
+                    </mat-card-content>
+                  </mat-card>
              </span>
     </div>
     <ng-template #emptyList>

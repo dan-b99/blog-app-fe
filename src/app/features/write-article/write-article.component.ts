@@ -23,9 +23,6 @@ import { SnackBarService } from 'src/app/shared/snack-bar.service';
 export class WriteArticleComponent {
   formValues?: FormGroup;
   tags?: string[];
-  regex = /<img[^>]*>/;
-  imgHTML?: string;
-  bodyHTML?: string;
 
   constructor(private blogService: BlogService, private snackBar: SnackBarService, private router: Router) {}
   
@@ -35,21 +32,7 @@ export class WriteArticleComponent {
     if(this.formValues.value.tags) {
       this.tags = this.formValues.value.tags.split(', ');
     }
-    this.imgSearch();
-    this.bodyAssignment();
-    console.log(`FORM ${this.formValues}, BODY ${this.bodyHTML}, TAGS ${this.formValues.value.tags} FINE`);
     this.sendData();
-  }
-  
-  private imgSearch() {
-    const matchings = this.regex.exec(this.formValues?.value.corpo);
-    if(matchings) {
-      this.imgHTML = matchings[0];
-    }
-  }
-    
-  private bodyAssignment() {
-    this.bodyHTML = this.imgHTML ? this.formValues?.value.corpo.replace(this.regex, '') : this.formValues?.value.corpo;
   }
 
   private sendData() {
@@ -65,7 +48,6 @@ export class WriteArticleComponent {
       categorie: this.formValues?.value.categoria,
       tags: tagArr
     }
-    console.log(articolo);
     this.blogService.addArticle(articolo).subscribe({
       next: () => this.router.navigateByUrl("/home").then(() => this.snackBar.open("Operazione riuscita")),
       error: (err: HttpErrorResponse) => this.snackBar.open(err.error.message)
