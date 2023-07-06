@@ -25,20 +25,18 @@ import { VisualizzaTagDTO } from 'src/app/shared/models/blog/visualizza-tag-dto.
             <div [innerHTML]="articolo.contenuto"></div>
             <div class="my-3">
               <h4><strong>Categories</strong></h4>
-              <span *ngFor="let c of articolo.categorie">
-                <span [innerHTML]="c.nome + ' '"></span>
-              </span>
+              <mat-chip-listbox>
+                <mat-chip *ngFor="let c of articolo.categorie" color="accent" highlighted>{{c.nome}}</mat-chip>
+              </mat-chip-listbox>
             </div>
             <div *ngIf="tags">
-              <span>
-                <h4><strong>Tags</strong></h4>
-                <span *ngFor="let t of tags">
-                  <span [innerHTML]="t + ' | '"></span>
-                </span>
-              </span>
+              <h4><strong>Tags</strong></h4>
+              <mat-chip-listbox>
+                <mat-chip *ngFor="let t of tags" color="accent" highlighted>{{t}}</mat-chip>
+              </mat-chip-listbox>
             </div>
             <div class="mt-3">
-              <h4 [innerHTML]="articolo.voti.length ? '<em>Voti</em>' : '<em>Ancora nessun voto...</em>'"></h4>
+              <h4 [innerHTML]="articolo.voti.length ? '<em>Votes</em>' : '<em>No votes yet...</em>'"></h4>
             </div>
           </mat-card-content>
         </mat-card>

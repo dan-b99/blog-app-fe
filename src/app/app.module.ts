@@ -22,6 +22,7 @@ import { WriteArticleComponent } from './features/write-article/write-article.co
 import { AuthenticationInterceptor } from './shared/authentication.interceptor';
 import { ValidationComponent } from './features/admin/validation/validation.component';
 import { MatSelectModule } from '@angular/material/select';
+import {MatChipsModule} from '@angular/material/chips';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { AddCategoriesComponent } from './features/admin/add-categories/add-categories.component';
 import { QuillModule } from 'ngx-quill';
@@ -51,6 +52,7 @@ import { ReadArticleComponent } from './features/read-article/read-article.compo
     MatIconModule,
     MatInputModule,
     MatSelectModule,
+    MatChipsModule,
     MultiSelectModule,
     BrowserAnimationsModule,
     MatButtonModule,
