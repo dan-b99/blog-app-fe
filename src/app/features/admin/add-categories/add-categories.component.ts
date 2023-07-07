@@ -9,17 +9,20 @@ import { SnackBarService } from 'src/app/shared/snack-bar.service';
 @Component({
   selector: 'app-add-categories',
   template: `
-    <div class="container-fluid m-3">
-      <div class="row">
-        <h2><strong>Aggiungi una categoria</strong></h2>
+    <div class="container-fluid mt-4">
+      <div class="row d-flex justify-content-center mb-5">
+        <h1 class="col-auto"><strong>Aggiungi una categoria</strong></h1>
       </div>
-      <div class="row mt-2">
+      <div class="row d-flex justify-content-left ms-3 mt-2">
         <form class="form control" [formGroup]="catForm">
           <mat-form-field appearance="outline">
             <mat-label>Nome categoria</mat-label>
             <input matInput formControlName="nome" placeholder="Nome">
           </mat-form-field>
-          <button class="btn btn-secondary ms-3 btn-lg" (click)="send()">Invia</button>
+          <button mat-fab extended color="primary" class="ms-3 mt-2" (click)="send()">
+            <mat-icon>done</mat-icon>
+            Invia
+          </button>
         </form>
       </div>
     </div>
@@ -41,9 +44,10 @@ export class AddCategoriesComponent {
       nome: this.catForm.controls['nome'].value
     }
     this.blogService.addCategory(categoria).subscribe({
-      next: () => this.router.navigateByUrl("/home").then(() => this.sb.open("Operazione riuscita")),
+      next: () => this.sb.open("Operazione riuscita"),
       error: (err: HttpErrorResponse) => this.sb.open(err.error.message)
     });
+    this.catForm.reset()
   }
 
 }

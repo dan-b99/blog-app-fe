@@ -10,7 +10,7 @@ import { VisualizzaTagDTO } from 'src/app/shared/models/blog/visualizza-tag-dto.
   template: `
     <div *ngIf="articolo" class="container-fluid p-2 d-flex justify-content-left">
       <div class="container m-2">
-        <mat-card class="example-card">
+        <mat-card class="p-3">
           <mat-card-header>
             <mat-card-title-group>
               <mat-card-title>
@@ -23,20 +23,31 @@ import { VisualizzaTagDTO } from 'src/app/shared/models/blog/visualizza-tag-dto.
           </mat-card-header>
           <mat-card-content>
             <div [innerHTML]="articolo.contenuto"></div>
-            <div class="my-3">
+            <mat-divider></mat-divider>
+            <div class="row mt-4 mb-3">
               <h4><strong>Categories</strong></h4>
               <mat-chip-listbox>
                 <mat-chip *ngFor="let c of articolo.categorie" color="accent" highlighted>{{c.nome}}</mat-chip>
               </mat-chip-listbox>
             </div>
-            <div *ngIf="tags">
+            <mat-divider></mat-divider>
+            <div *ngIf="tags" class="row mt-4 mb-3">
               <h4><strong>Tags</strong></h4>
               <mat-chip-listbox>
                 <mat-chip *ngFor="let t of tags" color="accent" highlighted>{{t}}</mat-chip>
               </mat-chip-listbox>
             </div>
-            <div class="mt-3">
+            <mat-divider></mat-divider>
+            <div class="row mt-3">
               <h4 [innerHTML]="articolo.voti.length ? '<em>Votes</em>' : '<em>No votes yet...</em>'"></h4>
+              <button mat-fab extended color="accent" class="me-3">
+                <mat-icon>thumb_up</mat-icon>
+                Like
+              </button>
+              <button mat-fab extended color="primary">
+                <mat-icon>thumb_down</mat-icon>
+                Dislike
+              </button>
             </div>
           </mat-card-content>
         </mat-card>

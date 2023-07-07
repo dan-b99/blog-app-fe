@@ -40,7 +40,7 @@ import { UserService } from 'src/app/shared/user.service';
         </ul>
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link active" [innerText]="name ? 'Bentornato, ' + name : ''"></a>
+            <a class="nav-link active" [innerText]="name ? 'Welcome back, ' + name : ''"></a>
           </li>
         </ul>
       </div>
@@ -59,7 +59,6 @@ export class HeaderComponent implements OnInit {
   constructor(private userService: UserService, private sb: SnackBarService) { }
 
   ngOnInit(): void {
-    console.log("INIZIALIZZO", this.userId);
     if(this.userId) {
       this.getRoles();
     }

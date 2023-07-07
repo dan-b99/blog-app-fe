@@ -7,6 +7,7 @@ import { RegistrazioneDTO } from './models/auth/registrazione-dto.model';
 import { LoginDTO } from './models/auth/login-dto.model';
 import { Autenticazione } from './models/auth/autenticazione-dto.model';
 import { RuoloOutputDTO } from './models/auth/ruolo-output-dto.model';
+import { ValidazioneDinamicaPasswordDTO } from './models/auth/validazione-dinamica-password-dto.model';
 
 @Injectable({
   providedIn: 'root'
@@ -33,5 +34,9 @@ export class UserService {
 
   findRoles(): Observable<RuoloOutputDTO[]> {
     return this.http.get<RuoloOutputDTO[]>(enviroment.endpoint + '/users/user-roles');
+  }
+  
+  setPasswordValidation(validaionObj: ValidazioneDinamicaPasswordDTO): Observable<void> {
+    return this.http.put<void>(enviroment.endpoint + "/users/custom-password-validation", validaionObj);
   }
 }

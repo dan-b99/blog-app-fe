@@ -14,7 +14,7 @@ import { SnackBarService } from 'src/app/shared/snack-bar.service';
 })
 export class HomeComponent implements OnInit {
   user: string = enviroment.name!;
-  articles?: VisualizzaArticoloDTO[];
+  articles: VisualizzaArticoloDTO[] = [];
   regex = /<img[^>]*>/;
   imgHTML?: string;
   bodyHTML?: string;
@@ -44,8 +44,6 @@ export class HomeComponent implements OnInit {
   
   async ngOnInit() {
     await this.execSub();
-    console.log("ARTICOLI", this.articles);
-    console.log("LUNGHEZZA", this.articles![0].contenuto.replace(/<[^>]*>/g, '').length);
     // this.imgSearch();
   }
 

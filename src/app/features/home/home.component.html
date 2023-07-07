@@ -1,6 +1,6 @@
 <div class="container m-3">
   <div class="container-fluid d-flex justify-content-left">
-    <div *ngIf="articles?.length; else emptyList">
+    <div *ngIf="articles.length; else emptyList">
       <span *ngFor="let art of articles">
         <mat-card class="mt-4 me-3">
           <mat-card-header>
