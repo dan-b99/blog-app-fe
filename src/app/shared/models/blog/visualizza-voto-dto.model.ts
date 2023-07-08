@@ -1,5 +1,7 @@
+import { UtenteOutput } from "../auth/utente-output.model";
+
 export interface VisualizzaVotoDTO {
     id: number,
-    utente: string,
+    utente: UtenteOutput,
     voto: boolean
 }

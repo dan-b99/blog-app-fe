@@ -8,6 +8,7 @@ import { ValidazioneDinamicaBlogDTO } from './models/blog/validazione-dniamica-b
 import { AggiuntaCategoriaDTO } from './models/blog/aggiunta-categoria-dto.model';
 import { VisualizzaCategoriaDTO } from './models/blog/visualizza-categoria-dto.model';
 import { ValidazioneDinamicaPasswordDTO } from './models/auth/validazione-dinamica-password-dto.model';
+import { AggiuntaVotoDTO } from './models/blog/aggiunta-voto-dto.model';
 
 @Injectable({
   providedIn: 'root'
@@ -38,5 +39,9 @@ export class BlogService {
 
   setBlogValidation(validationObj: ValidazioneDinamicaBlogDTO): Observable<void> {
     return this.http.put<void>(enviroment.endpoint + "/articles/custom-blog-validation", validationObj);
+  }
+
+  setVote(vote: AggiuntaVotoDTO): Observable<void> {
+    return this.http.post<void>(enviroment.endpoint + "/articles/voted", vote);
   }
 }

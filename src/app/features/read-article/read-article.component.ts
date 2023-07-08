@@ -1,9 +1,14 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
 import { BlogService } from 'src/app/shared/blog.service';
+import { enviroment } from 'src/app/shared/enviroment';
+import { AggiuntaVotoDTO } from 'src/app/shared/models/blog/aggiunta-voto-dto.model';
 import { VisualizzaArticoloDTO } from 'src/app/shared/models/blog/visualizza-articolo-dto.model';
 import { VisualizzaTagDTO } from 'src/app/shared/models/blog/visualizza-tag-dto.model';
+import { VisualizzaVotoDTO } from 'src/app/shared/models/blog/visualizza-voto-dto.model';
+import { SnackBarService } from 'src/app/shared/snack-bar.service';
 
 @Component({
   selector: 'app-read-article',
@@ -39,14 +44,14 @@ import { VisualizzaTagDTO } from 'src/app/shared/models/blog/visualizza-tag-dto.
             </div>
             <mat-divider></mat-divider>
             <div class="row mt-3">
-              <h4 [innerHTML]="articolo.voti.length ? '<em>Votes</em>' : '<em>No votes yet...</em>'"></h4>
-              <button mat-fab extended color="accent" class="me-3">
+              <h4 [innerHTML]="articolo.voti.length ? '<em>Votes</em>' + '&ensp;' + articolo.voti.length : '<em>No votes yet</em>'"></h4>
+              <button mat-fab extended [color]="hasVoted ? 'primary' : 'basic'" class="me-3" (click)="liked()">
                 <mat-icon>thumb_up</mat-icon>
-                Like
+                {{hasVoted ? 'Liked' : 'Like'}}
               </button>
-              <button mat-fab extended color="primary">
+              <button mat-fab extended [color]="hasVoted === false ? 'primary' : 'basic'" (click)="disliked()">
                 <mat-icon>thumb_down</mat-icon>
-                Dislike
+                {{hasVoted === false ? 'Disliked' : 'Dislike'}}
               </button>
             </div>
           </mat-card-content>
@@ -61,12 +66,21 @@ export class ReadArticleComponent implements OnInit {
   articolo?: VisualizzaArticoloDTO;
   autore?: string;
   tags?: string[];
+  hasVoted: boolean | null = null;
 
-  constructor(private blogService: BlogService, private actRoute: ActivatedRoute) { }
+  constructor(private blogService: BlogService, private actRoute: ActivatedRoute, private snackBar: SnackBarService) { }
 
   private async getArt() {
     const obsArt$ = this.blogService.getArticleById(this.actRoute.snapshot.params['id']);
     this.articolo = await lastValueFrom(obsArt$);
+  }
+
+  private async checkVote(): Promise<void> {
+    const checkVote = this.articolo?.voti.find((voto: VisualizzaVotoDTO) => (voto.utente.id === (Number.parseInt(enviroment.user_id!))));
+    console.log(checkVote);
+    if(checkVote) {
+      this.hasVoted = checkVote.voto ? true : false;
+    }
   }
 
   async ngOnInit() {
@@ -75,5 +89,38 @@ export class ReadArticleComponent implements OnInit {
     if(this.articolo?.tags) {
       this.tags = this.articolo.tags.flatMap((val: VisualizzaTagDTO) => val.nome);
     }
+    console.log(this.articolo);
+    await this.checkVote();
+    console.log(this.hasVoted);
+  }
+
+  liked() {
+    const voto: AggiuntaVotoDTO = {
+      utente: (Number)(enviroment.user_id),
+      articolo: this.actRoute.snapshot.params['id'],
+      voto: true
+    };
+    this.blogService.setVote(voto).subscribe({
+      next: () => {
+        this.snackBar.open("Votato");
+        window.location.reload();
+      },
+      error: (err: HttpErrorResponse) => this.snackBar.open(err.error.message)
+    });
+  }
+
+  disliked() {
+    const voto: AggiuntaVotoDTO = {
+      utente: (Number)(enviroment.user_id),
+      articolo: this.actRoute.snapshot.params['id'],
+      voto: false
+    };
+    this.blogService.setVote(voto).subscribe({
+      next: () => {
+        this.snackBar.open("Votato");
+        window.location.reload();
+      },
+      error: (err: HttpErrorResponse) => this.snackBar.open(err.error.message)
+    });
   }
 }
