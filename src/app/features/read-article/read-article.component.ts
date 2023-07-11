@@ -77,7 +77,6 @@ export class ReadArticleComponent implements OnInit {
 
   private async checkVote(): Promise<void> {
     const checkVote = this.articolo?.voti.find((voto: VisualizzaVotoDTO) => (voto.utente.id === (Number.parseInt(enviroment.user_id!))));
-    console.log(checkVote);
     if(checkVote) {
       this.hasVoted = checkVote.voto ? true : false;
     }
@@ -89,9 +88,7 @@ export class ReadArticleComponent implements OnInit {
     if(this.articolo?.tags) {
       this.tags = this.articolo.tags.flatMap((val: VisualizzaTagDTO) => val.nome);
     }
-    console.log(this.articolo);
     await this.checkVote();
-    console.log(this.hasVoted);
   }
 
   liked() {

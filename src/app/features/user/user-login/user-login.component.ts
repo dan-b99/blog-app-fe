@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { Autenticazione } from 'src/app/shared/models/auth/autenticazione-dto.model';
 import { LoginDTO } from 'src/app/shared/models/auth/login-dto.model';
+import { RuoloOutputDTO } from 'src/app/shared/models/auth/ruolo-output-dto.model';
 import { SnackBarService } from 'src/app/shared/snack-bar.service';
 import { UserService } from 'src/app/shared/user.service';
 
@@ -68,11 +69,14 @@ export class UserLoginComponent {
       password: this.loginForm.controls['password'].value
     };
     console.log(userLogged);
+    let roles: string = "";
     this.userService.login(userLogged).subscribe({
       next: (authenticated: Autenticazione) => {
         localStorage.setItem("jwt", authenticated.jwt);
         localStorage.setItem("USER_ID", authenticated.utenteOutput.id + '');
-        localStorage.setItem("name", authenticated.utenteOutput.nome)
+        localStorage.setItem("name", authenticated.utenteOutput.nome);
+        authenticated.utenteOutput.ruoli.map((val: RuoloOutputDTO) => roles += val.authority + " ");
+        localStorage.setItem("roles", roles);
         this.router.navigateByUrl('/home').then(() => window.location.reload());
       }, 
       error: (respErr: HttpErrorResponse) => {

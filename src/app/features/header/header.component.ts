@@ -65,16 +65,9 @@ export class HeaderComponent implements OnInit {
   }
 
   private getRoles() {
-    this.userService.findRoles().subscribe({
-      next: (arr: RuoloOutputDTO[]) => arr.forEach((val: RuoloOutputDTO) => {
-        if(val.authority === 'ROLE_ADMIN') {
-          this.roleAdmin = val.authority;
-        }
-        else if(val.authority === 'ROLE_USER') {
-          this.roleUser = val.authority;
-        }
-      }),
-      error: (err: HttpErrorResponse) => this.sb.open(err.error.message)
-    });
+    const roles = localStorage.getItem("roles");
+    if(roles?.includes("ROLE_ADMIN")) {
+      this.roleAdmin = "ROLE_ADMIN";
+    }
   }
 }
