@@ -10,16 +10,18 @@ import { ValidationComponent } from './features/admin/validation/validation.comp
 import { AddCategoriesComponent } from './features/admin/add-categories/add-categories.component';
 import { ReadArticleComponent } from './features/read-article/read-article.component';
 import { administrationGuard } from './shared/administration.guard';
+import { SearchArticleComponent } from './features/search-article/search-article.component';
 
 const routes: Routes = [
   {path: "home", component: HomeComponent, canActivate: [authenticationGuard]},
   {path: 'signUp', component: UserRegistrationComponent},
   {path: 'login', component: UserLoginComponent},
   {path: 'logout', component: UserLogoutComponent},
-  {path: 'add-category', component: AddCategoriesComponent, data: {role: 'ROLE_ADMIN'}, canActivate: [authenticationGuard, administrationGuard]},
+  {path: 'add-category', component: AddCategoriesComponent, canActivate: [authenticationGuard, administrationGuard]},
   {path: 'write', component: WriteArticleComponent, canActivate: [authenticationGuard]},
   {path: 'read/:id', component: ReadArticleComponent, canActivate: [authenticationGuard]},
   {path: 'validate', component: ValidationComponent, canActivate: [authenticationGuard, administrationGuard]},
+  {path: 'search', component: SearchArticleComponent, canActivate: [authenticationGuard]},
   {path: '**', redirectTo: 'home'}
 ];
 

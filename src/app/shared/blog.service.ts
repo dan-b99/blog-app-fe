@@ -7,7 +7,6 @@ import { VisualizzaArticoloDTO } from './models/blog/visualizza-articolo-dto.mod
 import { ValidazioneDinamicaBlogDTO } from './models/blog/validazione-dniamica-blog-dto.model';
 import { AggiuntaCategoriaDTO } from './models/blog/aggiunta-categoria-dto.model';
 import { VisualizzaCategoriaDTO } from './models/blog/visualizza-categoria-dto.model';
-import { ValidazioneDinamicaPasswordDTO } from './models/auth/validazione-dinamica-password-dto.model';
 import { AggiuntaVotoDTO } from './models/blog/aggiunta-voto-dto.model';
 
 @Injectable({
@@ -35,6 +34,18 @@ export class BlogService {
 
   getArticles(): Observable<VisualizzaArticoloDTO[]> {
     return this.http.get<VisualizzaArticoloDTO[]>(enviroment.endpoint + "/articles/all");
+  }
+
+  getArticlesByKeyword(keyword: string): Observable<VisualizzaArticoloDTO[]> {
+    return this.http.get<VisualizzaArticoloDTO[]>(enviroment.endpoint + "/articles/by-keyword?keyword=" + keyword);
+  }
+
+  getArticlesByTags(tags: string[]): Observable<VisualizzaArticoloDTO[]> {
+    return this.http.post<VisualizzaArticoloDTO[]>(enviroment.endpoint + "/articles/by-tags", tags);
+  }
+
+  getArticlesByCategories(catIds: number[]): Observable<VisualizzaArticoloDTO[]> {
+    return this.http.post<VisualizzaArticoloDTO[]>(enviroment.endpoint + "/articles/by-categories", catIds);
   }
 
   setBlogValidation(validationObj: ValidazioneDinamicaBlogDTO): Observable<void> {

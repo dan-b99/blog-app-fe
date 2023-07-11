@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
 import { UserService } from './user.service';
-import { RuoloOutputDTO } from './models/auth/ruolo-output-dto.model';
 import { Router } from '@angular/router';
 import { SnackBarService } from './snack-bar.service';
-import { HttpErrorResponse } from '@angular/common/http';
-import { find, lastValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
