@@ -13,7 +13,7 @@ import { SnackBarService } from 'src/app/shared/snack-bar.service';
 @Component({
   selector: 'app-read-article',
   template: `
-    <div *ngIf="articolo" class="container-fluid p-2 d-flex justify-content-left">
+    <div *ngIf="articolo; else empty" class="container-fluid p-2 d-flex justify-content-left">
       <div class="container m-2">
         <mat-card class="p-3">
           <mat-card-header>
@@ -58,6 +58,13 @@ import { SnackBarService } from 'src/app/shared/snack-bar.service';
         </mat-card>
       </div>
     </div>
+    <ng-template #empty>
+      <div class="container-fluid d-flex justify-content-center">
+        <div class="row mt-3">
+          <h2>There is nothing to show here...</h2>
+        </div>
+      </div>
+    </ng-template>
   `,
   styles: [
   ]

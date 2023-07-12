@@ -29,11 +29,19 @@ export class BlogService {
   }
 
   getArticleById(id: number): Observable<VisualizzaArticoloDTO> {
-    return this.http.get<VisualizzaArticoloDTO>(enviroment.endpoint + "/articles/" + id);
+    return this.http.get<VisualizzaArticoloDTO>(enviroment.endpoint + "/articles/approved/" + id);
+  }
+
+  notApprovedById(id: number): Observable<VisualizzaArticoloDTO> {
+    return this.http.get<VisualizzaArticoloDTO>(enviroment.endpoint + "/articles/not-approved/" + id);
   }
 
   getArticles(): Observable<VisualizzaArticoloDTO[]> {
-    return this.http.get<VisualizzaArticoloDTO[]>(enviroment.endpoint + "/articles/all");
+    return this.http.get<VisualizzaArticoloDTO[]>(enviroment.endpoint + "/articles/all-approved");
+  }
+
+  getNotApprovedArticles(): Observable<VisualizzaArticoloDTO[]> {
+    return this.http.get<VisualizzaArticoloDTO[]>(enviroment.endpoint + "/articles/not-approved");
   }
 
   getArticlesByKeyword(keyword: string): Observable<VisualizzaArticoloDTO[]> {
@@ -50,6 +58,14 @@ export class BlogService {
 
   setBlogValidation(validationObj: ValidazioneDinamicaBlogDTO): Observable<void> {
     return this.http.put<void>(enviroment.endpoint + "/articles/custom-blog-validation", validationObj);
+  }
+
+  approveArticle(id: number): Observable<void> {
+    return this.http.put<void>(enviroment.endpoint + "/articles/approve", id);
+  }
+
+  deleteArticle(id: number): Observable<void> {
+    return this.http.delete<void>(enviroment.endpoint + "/articles/delete/" + id);
   }
 
   setVote(vote: AggiuntaVotoDTO): Observable<void> {

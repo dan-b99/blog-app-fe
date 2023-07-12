@@ -31,6 +31,8 @@ import { AddCategoriesComponent } from './features/admin/add-categories/add-cate
 import { QuillModule } from 'ngx-quill';
 import { ReadArticleComponent } from './features/read-article/read-article.component';
 import { SearchArticleComponent } from './features/search-article/search-article.component';
+import { ApproveArticlesComponent } from './features/admin/approve-articles/approve-articles.component';
+import { ArticleToApproveComponent } from './features/admin/approve-articles/article-to-approve/article-to-approve.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { SearchArticleComponent } from './features/search-article/search-article
     ValidationComponent,
     AddCategoriesComponent,
     ReadArticleComponent,
-    SearchArticleComponent
+    SearchArticleComponent,
+    ApproveArticlesComponent,
+    ArticleToApproveComponent
   ],
   imports: [
     BrowserModule,

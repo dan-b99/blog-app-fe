@@ -23,11 +23,21 @@ import { UserService } from 'src/app/shared/user.service';
         <li class="nav-item">
           <a class="nav-link active" *ngIf="userId" routerLink="search">Search articles</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link active" *ngIf="roleAdmin" routerLink="validate">Validations</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" *ngIf="roleAdmin" routerLink="add-category">Add Categories</a>
+        <li class="nav-item dropdown" *ngIf="roleAdmin">
+          <a class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Administration
+          </a>
+          <ul class="dropdown-menu">
+            <li class="nav-item">
+              <a class="nav-link active" routerLink="add-category">Add Categories</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" routerLink="approve">Approve articles</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" routerLink="validate">Validations</a>
+            </li>
+          </ul>
         </li>
       <li class="nav-item">
         <a class="nav-link active" [routerLink]="userId ? 'logout' : 'login'" [innerText]="userId ? 'Logout' : 'Accedi'"></a>

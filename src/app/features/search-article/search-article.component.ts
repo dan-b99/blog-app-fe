@@ -104,10 +104,12 @@ export class SearchArticleComponent implements OnInit{
     this.isTagSelected = false;
     this.form.reset();
     this.form.enable();
+    if(this.articoliTrovati.length > 0) {
+      this.articoliTrovati.splice(0);
+    }
   }
 
   sendData() {
-    console.log(this.form);
     if(this.form.value['keyword']) {
       this.blogService.getArticlesByKeyword(this.form.value['keyword']).subscribe({
         next: (vals: VisualizzaArticoloDTO[]) => this.articoliTrovati = vals,
