@@ -33,6 +33,7 @@ import { ReadArticleComponent } from './features/read-article/read-article.compo
 import { SearchArticleComponent } from './features/search-article/search-article.component';
 import { ApproveArticlesComponent } from './features/admin/approve-articles/approve-articles.component';
 import { ArticleToApproveComponent } from './features/admin/approve-articles/article-to-approve/article-to-approve.component';
+import { UsersHandlingComponent } from './features/admin/users-handling/users-handling.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { ArticleToApproveComponent } from './features/admin/approve-articles/art
     ReadArticleComponent,
     SearchArticleComponent,
     ApproveArticlesComponent,
-    ArticleToApproveComponent
+    ArticleToApproveComponent,
+    UsersHandlingComponent
   ],
   imports: [
     BrowserModule,

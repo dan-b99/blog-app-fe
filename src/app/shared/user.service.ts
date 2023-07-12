@@ -35,6 +35,10 @@ export class UserService {
   findRoles(): Observable<RuoloOutputDTO[]> {
     return this.http.get<RuoloOutputDTO[]>(enviroment.endpoint + '/users/user-roles');
   }
+
+  findAll(): Observable<UtenteOutput[]> {
+    return this.http.get<UtenteOutput[]>(enviroment.endpoint + "/users/all");
+  }
   
   setPasswordValidation(validaionObj: ValidazioneDinamicaPasswordDTO): Observable<void> {
     return this.http.put<void>(enviroment.endpoint + "/users/custom-password-validation", validaionObj);

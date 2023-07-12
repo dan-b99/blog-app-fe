@@ -13,6 +13,7 @@ import { administrationGuard } from './shared/administration.guard';
 import { SearchArticleComponent } from './features/search-article/search-article.component';
 import { ApproveArticlesComponent } from './features/admin/approve-articles/approve-articles.component';
 import { ArticleToApproveComponent } from './features/admin/approve-articles/article-to-approve/article-to-approve.component';
+import { UsersHandlingComponent } from './features/admin/users-handling/users-handling.component';
 
 const routes: Routes = [
   {path: "home", component: HomeComponent, canActivate: [authenticationGuard]},
@@ -26,6 +27,7 @@ const routes: Routes = [
   {path: 'search', component: SearchArticleComponent, canActivate: [authenticationGuard]},
   {path: 'approve', component: ApproveArticlesComponent, canActivate: [authenticationGuard, administrationGuard]},
   {path: 'to-approve/:id', component: ArticleToApproveComponent, canActivate: [authenticationGuard, administrationGuard]},
+  {path: 'users-handling', component: UsersHandlingComponent, canActivate: [authenticationGuard, administrationGuard]},
   {path: '**', redirectTo: 'home'}
 ];
 

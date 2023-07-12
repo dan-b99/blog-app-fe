@@ -35,6 +35,9 @@ import { UserService } from 'src/app/shared/user.service';
               <a class="nav-link active" routerLink="approve">Approve articles</a>
             </li>
             <li class="nav-item">
+              <a class="nav-link active" routerLink="users-handling">Users handling</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link active" routerLink="validate">Validations</a>
             </li>
           </ul>
