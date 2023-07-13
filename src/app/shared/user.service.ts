@@ -43,4 +43,12 @@ export class UserService {
   setPasswordValidation(validaionObj: ValidazioneDinamicaPasswordDTO): Observable<void> {
     return this.http.put<void>(enviroment.endpoint + "/users/custom-password-validation", validaionObj);
   }
+
+  setBlocked(id: number): Observable<void> {
+    return this.http.put<void>(enviroment.endpoint + "/users/set-block", id);
+  }
+
+  delete(id: number): Observable<void> {
+    return this.http.delete<void>(enviroment.endpoint + "/users/delete/" + id);
+  }
 }

@@ -6,4 +6,5 @@ export interface UtenteOutput {
     cognome: string,
     email: string,
     ruoli: RuoloOutputDTO[];
+    bloccato: boolean;
 }
