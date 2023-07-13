@@ -23,10 +23,11 @@ import { AuthenticationInterceptor } from './shared/authentication.interceptor';
 import { ValidationComponent } from './features/admin/validation/validation.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatChipsModule } from '@angular/material/chips';
-import { Chips, ChipsModule } from 'primeng/chips';
+import { ChipsModule } from 'primeng/chips';
 import { MatDividerModule } from '@angular/material/divider';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { FormsModule } from '@angular/forms';
 import { AddCategoriesComponent } from './features/admin/add-categories/add-categories.component';
 import { QuillModule } from 'ngx-quill';
 import { ReadArticleComponent } from './features/read-article/read-article.component';
@@ -62,6 +63,7 @@ import { UsersHandlingComponent } from './features/admin/users-handling/users-ha
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
+    MatFormFieldModule,
     MatSelectModule,
     MatCheckboxModule,
     MatChipsModule,

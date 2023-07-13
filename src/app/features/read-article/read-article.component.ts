@@ -1,9 +1,11 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
 import { BlogService } from 'src/app/shared/blog.service';
 import { enviroment } from 'src/app/shared/enviroment';
+import { AggiuntaCommentoDTO } from 'src/app/shared/models/blog/aggiunta-commento-dto.model';
 import { AggiuntaVotoDTO } from 'src/app/shared/models/blog/aggiunta-voto-dto.model';
 import { VisualizzaArticoloDTO } from 'src/app/shared/models/blog/visualizza-articolo-dto.model';
 import { VisualizzaTagDTO } from 'src/app/shared/models/blog/visualizza-tag-dto.model';
@@ -15,7 +17,7 @@ import { SnackBarService } from 'src/app/shared/snack-bar.service';
   template: `
     <div *ngIf="articolo; else empty" class="container-fluid p-2 d-flex justify-content-left">
       <div class="container m-2">
-        <mat-card class="p-3">
+        <mat-card class="p-3 mb-3">
           <mat-card-header>
             <mat-card-title-group>
               <mat-card-title>
@@ -56,6 +58,46 @@ import { SnackBarService } from 'src/app/shared/snack-bar.service';
             </div>
           </mat-card-content>
         </mat-card>
+        <mat-card class="p-2">
+        <mat-card-header>
+            <mat-card-title-group>
+              <mat-card-title>
+                <span><strong>Comments</strong></span>
+              </mat-card-title>
+              <mat-card-subtitle class="mb-3">
+                <span><em>Insert a comment or reply to others</em></span>
+              </mat-card-subtitle>
+            </mat-card-title-group>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="row mb-2">
+              <form [formGroup]="commentForm">
+                <mat-form-field style="width:60%">
+                  <mat-label>Leave a comment</mat-label>
+                  <textarea formControlName="comment" matInput placeholder="Comment here..."></textarea>
+                </mat-form-field>
+                <button mat-fab extended color="basic" class="ms-3" (click)="addComment()">
+                  <mat-icon>reply</mat-icon>
+                  Reply
+                </button>
+              </form>
+            </div>
+            <div *ngIf="articolo.commenti">
+              <div *ngFor="let c of articolo.commenti">
+                <mat-divider></mat-divider>
+                <span>
+                  <span class="row mt-2" [innerHTML]="'<h4><em>' + c.autore.username + ' ' + c.autore.email + ' says:</em></h4>'"></span>
+                  <span class="row" [innerHTML]="'<h4>' + c.testo + '</h4'"></span>
+                </span>
+                <span>
+                  <button mat-mini-fab color="basic" class="mb-2">
+                    <mat-icon>reply</mat-icon>
+                  </button>
+                </span>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
       </div>
     </div>
     <ng-template #empty>
@@ -74,8 +116,13 @@ export class ReadArticleComponent implements OnInit {
   autore?: string;
   tags?: string[];
   hasVoted: boolean | null = null;
+  commentForm: FormGroup;
 
-  constructor(private blogService: BlogService, private actRoute: ActivatedRoute, private snackBar: SnackBarService) { }
+  constructor(private blogService: BlogService, private fb: FormBuilder, private actRoute: ActivatedRoute, private snackBar: SnackBarService) { 
+    this.commentForm = this.fb.group({
+      comment: new FormControl('')
+    });
+  }
 
   private async getArt() {
     const obsArt$ = this.blogService.getArticleById(this.actRoute.snapshot.params['id']);
@@ -126,5 +173,18 @@ export class ReadArticleComponent implements OnInit {
       },
       error: (err: HttpErrorResponse) => this.snackBar.open(err.error.message)
     });
+  }
+
+  addComment() {
+    let comment: AggiuntaCommentoDTO = {
+      articolo: (Number)(this.actRoute.snapshot.params['id']),
+      autore: (Number)(localStorage.getItem("USER_ID")),
+      testo: this.commentForm.controls['comment'].value
+    };
+    this.blogService.addComment(comment).subscribe({
+      error: (err: HttpErrorResponse) => this.snackBar.open(err.error.message),
+      complete: () => this.snackBar.open("Comment added")
+    });
+    setTimeout(() => window.location.reload(), 1000);
   }
 }

@@ -80,7 +80,7 @@ export class ValidationComponent {
         massimo: this.formBlog.controls['massimo'].value
       };
       this.blogService.setBlogValidation(validateBlog).subscribe({
-        next: () => this.router.navigateByUrl("/write").then(() => this.sb.open("Operazione riuscita")),
+        next: () => this.sb.open("Operazione riuscita"),
         error: (err: HttpErrorResponse) => this.sb.open(err.error.message)
       });
     }
@@ -93,12 +93,12 @@ export class ValidationComponent {
         maiuscole: this.formBlog.controls['maiuscole'].value,
         regexPass: ''
       }
-      console.log(validatePass);
       this.userService.setPasswordValidation(validatePass).subscribe({
-        next: () => this.router.navigateByUrl("/home").then(() => this.sb.open("Operazione riuscita")),
+        next: () => this.sb.open("Operazione riuscita"),
         error: (err: HttpErrorResponse) => this.sb.open(err.error.message)
       })
     }
+    this.formBlog.reset();
   }
 
 }

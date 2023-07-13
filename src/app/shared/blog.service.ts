@@ -8,6 +8,7 @@ import { ValidazioneDinamicaBlogDTO } from './models/blog/validazione-dniamica-b
 import { AggiuntaCategoriaDTO } from './models/blog/aggiunta-categoria-dto.model';
 import { VisualizzaCategoriaDTO } from './models/blog/visualizza-categoria-dto.model';
 import { AggiuntaVotoDTO } from './models/blog/aggiunta-voto-dto.model';
+import { AggiuntaCommentoDTO } from './models/blog/aggiunta-commento-dto.model';
 
 @Injectable({
   providedIn: 'root'
@@ -70,5 +71,9 @@ export class BlogService {
 
   setVote(vote: AggiuntaVotoDTO): Observable<void> {
     return this.http.post<void>(enviroment.endpoint + "/articles/voted", vote);
+  }
+
+  addComment(comment: AggiuntaCommentoDTO): Observable<void> {
+    return this.http.post<void>(enviroment.endpoint + "/articles/add-comment", comment);
   }
 }
