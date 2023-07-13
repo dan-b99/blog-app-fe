@@ -22,31 +22,24 @@ import { SnackBarService } from 'src/app/shared/snack-bar.service';
 })
 export class WriteArticleComponent {
   formValues?: FormGroup;
-  tags?: string[];
+  tags: AggiuntaTagDTO[] = [];
 
   constructor(private blogService: BlogService, private snackBar: SnackBarService, private router: Router) {}
   
   catchData(event: FormGroup) {
-    console.log("METODO CATCH: ", event);
     this.formValues = event;
-    if(this.formValues.value.tags) {
-      this.tags = this.formValues.value.tags.split(', ');
-    }
     this.sendData();
   }
 
   private sendData() {
-    const tagArr: AggiuntaTagDTO[] = [];
-    if(this.tags) {
-      this.tags[0] = this.tags[0].replace(/<p>/g, "");
-      this.tags[this.tags.length-1] = this.tags[this.tags.length-1].replace(/<\/p>/g, "");
-      this.tags.forEach((val: string) => tagArr.push({nome: val}));
+    if(this.formValues?.value.tags) {
+      this.formValues.value.tags.forEach((val: string) => this.tags.push({nome: val}))
     }
     let articolo: AggiuntaArticoloDTO = {
       titolo: this.formValues?.value.titolo,
       contenuto: this.formValues?.value.corpo,
       categorie: this.formValues?.value.categoria,
-      tags: tagArr
+      tags: this.tags
     }
     this.blogService.addArticle(articolo).subscribe({
       next: () => this.router.navigateByUrl("/home").then(() => this.snackBar.open("Operazione riuscita")),

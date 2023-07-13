@@ -21,13 +21,7 @@ Quill.register('modules/blotFormatter', BlotFormatter);
           <p-editor formControlName="corpo" [style]="{'min-height': '120px'}" [modules]="configModuleBody" placeholder="Testo..." required></p-editor>
         </div>
         <div class="row mb-4">
-          <p-editor formControlName="tags" [style]="{'min-height': '75px'}" placeholder="Inserisci tags separati da virgola...">
-            <ng-template pTemplate="header">
-              <select class="ql-size">
-                <option selected></option>>
-              </select>
-            </ng-template>
-          </p-editor>
+        <p-chips formControlName="tags" [separator]="separatorStr" placeholder="Tags: a, b c"></p-chips>
         </div>
         <div class="row mb-4 col-9">
           <p-multiSelect [options]="categories" formControlName="categoria" defaultLabel="Categorie" optionLabel="nome" optionValue="id" required [showHeader]="false" [showClear]="true"></p-multiSelect>
@@ -54,6 +48,7 @@ export class RitchTextComponent implements OnInit {
   configModuleBody: any = {
     blotFormatter: { }
   }
+  separatorStr: string  = ',| ';
 
   constructor(private fb: FormBuilder, private bs: BlogService, private sb: SnackBarService) {
     this.form = fb.group({
