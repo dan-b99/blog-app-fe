@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { BlogService } from 'src/app/shared/blog.service';
@@ -65,7 +65,7 @@ import { SnackBarService } from 'src/app/shared/snack-bar.service';
   styles: [
   ]
 })
-export class CommentReplyComponent {
+export class CommentReplyComponent implements OnInit {
   @Input() art?: VisualizzaArticoloDTO;
   commentForm: FormGroup;
   isReplyClicked: boolean = false;
@@ -75,6 +75,10 @@ export class CommentReplyComponent {
     this.commentForm = this.fb.group({
       comment: new FormControl('')
     });
+  }
+
+  ngOnInit(): void {
+    console.log(this.art);
   }
 
   addComment() {
@@ -104,8 +108,6 @@ export class CommentReplyComponent {
       padre: commId,
       testo: this.reply!
     }
-    console.log("ARTICOLO", this.art);
-    console.log("RISPOSTA", replyToAdd);
    this.blogService.addReply(replyToAdd).subscribe({
     error: (err: HttpErrorResponse) => this.snackBar.open(err.error.message),
     complete: () => this.snackBar.open("Reply added")
@@ -113,9 +115,4 @@ export class CommentReplyComponent {
    setTimeout(() => window.location.reload(), 1000);
   }
 
-}
-
-interface buttonClicked {
-  commentId: number,
-  isClicked: boolean
 }

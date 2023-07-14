@@ -48,9 +48,6 @@ import { UserService } from 'src/app/shared/user.service';
       <li class="nav-item">
           <a *ngIf="!userId" class="nav-link active" routerLink="signUp">Sign up</a>
       </li>
-        <li class="nav-item" *ngIf="!userId">
-          <a class="nav-link active" href="#">About</a>
-        </li>
         </ul>
         <ul class="navbar-nav">
           <li class="nav-item">
