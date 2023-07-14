@@ -35,6 +35,7 @@ import { SearchArticleComponent } from './features/search-article/search-article
 import { ApproveArticlesComponent } from './features/admin/approve-articles/approve-articles.component';
 import { ArticleToApproveComponent } from './features/admin/approve-articles/article-to-approve/article-to-approve.component';
 import { UsersHandlingComponent } from './features/admin/users-handling/users-handling.component';
+import { CommentReplyComponent } from './features/read-article/comment-reply.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { UsersHandlingComponent } from './features/admin/users-handling/users-ha
     SearchArticleComponent,
     ApproveArticlesComponent,
     ArticleToApproveComponent,
-    UsersHandlingComponent
+    UsersHandlingComponent,
+    CommentReplyComponent
   ],
   imports: [
     BrowserModule,
@@ -60,6 +62,7 @@ import { UsersHandlingComponent } from './features/admin/users-handling/users-ha
     HttpClientModule,
     ReactiveFormsModule,
     QuillModule.forRoot(),
+    FormsModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,

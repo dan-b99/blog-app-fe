@@ -43,10 +43,10 @@ import { UserService } from 'src/app/shared/user.service';
           </ul>
         </li>
       <li class="nav-item">
-        <a class="nav-link active" [routerLink]="userId ? 'logout' : 'login'" [innerText]="userId ? 'Logout' : 'Accedi'"></a>
+        <a class="nav-link active" [routerLink]="userId ? 'logout' : 'login'" [innerText]="userId ? 'Logout' : 'Login'"></a>
       </li>
       <li class="nav-item">
-          <a *ngIf="!userId" class="nav-link active" routerLink="signUp">Registrati</a>
+          <a *ngIf="!userId" class="nav-link active" routerLink="signUp">Sign up</a>
       </li>
         <li class="nav-item" *ngIf="!userId">
           <a class="nav-link active" href="#">About</a>

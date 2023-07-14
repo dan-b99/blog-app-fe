@@ -89,10 +89,11 @@ export class ValidationComponent {
         campo: this.formBlog.controls['selezione'].value,
         minimo: this.formBlog.controls['minimo'].value,
         massimo: this.formBlog.controls['massimo'].value,
-        caratteriSpeciali: this.formBlog.controls['caratteriSpeciali'].value,
-        maiuscole: this.formBlog.controls['maiuscole'].value,
+        caratteriSpeciali: this.formBlog.controls['caratteriSpeciali'].value === null ? false : this.formBlog.controls['caratteriSpeciali'].value,
+        maiuscole: this.formBlog.controls['maiuscole'].value === null ? false : this.formBlog.controls['maiuscole'].value,
         regexPass: ''
       }
+      console.log(validatePass);
       this.userService.setPasswordValidation(validatePass).subscribe({
         next: () => this.sb.open("Operazione riuscita"),
         error: (err: HttpErrorResponse) => this.sb.open(err.error.message)
