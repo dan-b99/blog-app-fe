@@ -1,6 +1,13 @@
 <div class="container m-3">
   <div class="container-fluid d-flex justify-content-left">
     <div *ngIf="articles.length; else emptyList">
+      <div class="row mt-3">
+        <form [formGroup]="orderForm">
+          <p-checkbox formControlName="asc" label="Least voted" [binary]="true" (onChange)="clickMe()"></p-checkbox>
+          <p-checkbox formControlName="desc" label="Most voted" [binary]="true" (onChange)="clickMe()" class="mx-3"></p-checkbox>
+          <p-checkbox formControlName="likes" label="Most liked" [binary]="true" (onChange)="clickMe()"></p-checkbox>
+        </form>
+      </div>
       <span *ngFor="let art of articles">
         <mat-card class="mt-4 me-3">
           <mat-card-header>
@@ -16,6 +23,6 @@
     </span>
   </div>
   <ng-template #emptyList>
-    <h2 class="d-flex justify-content-center">Non ci sono ancora articoli da visualizzare...</h2>
+    <h2 class="d-flex justify-content-center">There are no articles to read yet...</h2>
   </ng-template>
 </div>

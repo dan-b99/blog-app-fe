@@ -24,6 +24,7 @@ import { ValidationComponent } from './features/admin/validation/validation.comp
 import { MatSelectModule } from '@angular/material/select';
 import { MatChipsModule } from '@angular/material/chips';
 import { ChipsModule } from 'primeng/chips';
+import { CheckboxModule } from 'primeng/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -77,7 +78,8 @@ import { CommentReplyComponent } from './features/read-article/comment-reply.com
     MatButtonModule,
     MatCardModule,
     MatSnackBarModule,
-    EditorModule
+    EditorModule,
+    CheckboxModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

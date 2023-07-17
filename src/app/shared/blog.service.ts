@@ -74,6 +74,18 @@ export class BlogService {
     return this.http.post<void>(enviroment.endpoint + "/articles/voted", vote);
   }
 
+  getAllOrderedByVotesDesc(): Observable<VisualizzaArticoloDTO[]> {
+    return this.http.get<VisualizzaArticoloDTO[]>(enviroment.endpoint + "/articles/all-by-votes-desc");
+  }
+
+  getAllOrderedByLikesAsc(): Observable<VisualizzaArticoloDTO[]> {
+    return this.http.get<VisualizzaArticoloDTO[]>(enviroment.endpoint + "/articles/all-by-votes-asc");
+  }
+
+  getAllOrderedByLikes(): Observable<VisualizzaArticoloDTO[]> {
+    return this.http.get<VisualizzaArticoloDTO[]>(enviroment.endpoint + "/articles/all-by-likes");
+  }
+
   addComment(comment: AggiuntaCommentoDTO): Observable<void> {
     return this.http.post<void>(enviroment.endpoint + "/articles/add-comment", comment);
   }
