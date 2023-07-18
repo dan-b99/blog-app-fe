@@ -11,6 +11,5 @@ export interface VisualizzaArticoloDTO {
     tags: VisualizzaTagDTO[];
     utente: UtenteOutput;
     categorie: VisualizzaCategoriaDTO[];
-    commenti: VisualizzaCommentoDTO[];
     voti: VisualizzaVotoDTO[];
 }

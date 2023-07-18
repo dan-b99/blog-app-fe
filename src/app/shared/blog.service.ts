@@ -10,6 +10,8 @@ import { VisualizzaCategoriaDTO } from './models/blog/visualizza-categoria-dto.m
 import { AggiuntaVotoDTO } from './models/blog/aggiunta-voto-dto.model';
 import { AggiuntaCommentoDTO } from './models/blog/aggiunta-commento-dto.model';
 import { AggiuntaRispostaDTO } from './models/blog/aggiunta-risposta-dto.model';
+import { VisualizzaCommentoDTO } from './models/blog/visualizza-commento-dto.model';
+import { VisualizzaRispostaDTO } from './models/blog/visualizza-risposta-dto.model';
 
 @Injectable({
   providedIn: 'root'
@@ -87,10 +89,22 @@ export class BlogService {
   }
 
   addComment(comment: AggiuntaCommentoDTO): Observable<void> {
-    return this.http.post<void>(enviroment.endpoint + "/articles/add-comment", comment);
+    return this.http.post<void>(enviroment.endpoint + "/comments/add", comment);
+  }
+
+  getCommentsByArtId(id: number): Observable<VisualizzaCommentoDTO[]> {
+    return this.http.get<VisualizzaCommentoDTO[]>(enviroment.endpoint + "/comments/by-art-id?id=" + id);
   }
 
   addReply(reply: AggiuntaRispostaDTO): Observable<void> {
-    return this.http.post<void>(enviroment.endpoint + "/articles/add-reply", reply);
+    return this.http.post<void>(enviroment.endpoint + "/comments/add-reply", reply);
+  }
+
+  // getRepliesByArtId(id: number): Observable<VisualizzaRispostaDTO[]> {
+  //   return this.http.get<VisualizzaRispostaDTO[]>(enviroment.endpoint + "/comments/replies-by-art-id?id=" + id);
+  // }
+
+  getRepliesByArtIdAndCommId(artId: number, commId: number): Observable<VisualizzaRispostaDTO[]> {
+    return this.http.get<VisualizzaRispostaDTO[]>(enviroment.endpoint + "/comments/replies-by-artId-commId?artId=" + artId + "&commId=" + commId);
   }
 }
