@@ -68,7 +68,6 @@ export class UserLoginComponent {
       email: this.loginForm.controls['email'].value,
       password: this.loginForm.controls['password'].value
     };
-    console.log(userLogged);
     let roles: string = "";
     this.userService.login(userLogged).subscribe({
       next: (authenticated: Autenticazione) => {

@@ -4,5 +4,6 @@ import { VisualizzaCommentoDTO } from "./visualizza-commento-dto.model";
 export interface VisualizzaRispostaDTO {
     id: number,
     testo: string,
-    autore: UtenteCommentoDTO;
+    autore: UtenteCommentoDTO,
+    padre: VisualizzaCommentoDTO;
 }

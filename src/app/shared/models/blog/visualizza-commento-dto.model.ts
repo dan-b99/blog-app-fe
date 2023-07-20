@@ -5,5 +5,5 @@ export interface VisualizzaCommentoDTO {
     id: number;
     testo: string;
     autore: UtenteCommentoDTO;
-    risposte: VisualizzaRispostaDTO[];
+    //risposte: VisualizzaRispostaDTO[];
 }

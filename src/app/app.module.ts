@@ -25,6 +25,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatChipsModule } from '@angular/material/chips';
 import { ChipsModule } from 'primeng/chips';
 import { CheckboxModule } from 'primeng/checkbox';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -37,6 +38,7 @@ import { ApproveArticlesComponent } from './features/admin/approve-articles/appr
 import { ArticleToApproveComponent } from './features/admin/approve-articles/article-to-approve/article-to-approve.component';
 import { UsersHandlingComponent } from './features/admin/users-handling/users-handling.component';
 import { CommentReplyComponent } from './features/read-article/comment-reply.component';
+import { ViewRepliesComponent } from './features/read-article/view-replies.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,8 @@ import { CommentReplyComponent } from './features/read-article/comment-reply.com
     ApproveArticlesComponent,
     ArticleToApproveComponent,
     UsersHandlingComponent,
-    CommentReplyComponent
+    CommentReplyComponent,
+    ViewRepliesComponent
   ],
   imports: [
     BrowserModule,
@@ -79,6 +82,7 @@ import { CommentReplyComponent } from './features/read-article/comment-reply.com
     MatCardModule,
     MatSnackBarModule,
     EditorModule,
+    DynamicDialogModule,
     CheckboxModule
   ],
   providers: [{

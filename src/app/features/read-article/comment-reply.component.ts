@@ -1,7 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { lastValueFrom } from 'rxjs';
 import { BlogService } from 'src/app/shared/blog.service';
 import { AggiuntaCommentoDTO } from 'src/app/shared/models/blog/aggiunta-commento-dto.model';
@@ -10,6 +11,7 @@ import { VisualizzaArticoloDTO } from 'src/app/shared/models/blog/visualizza-art
 import { VisualizzaCommentoDTO } from 'src/app/shared/models/blog/visualizza-commento-dto.model';
 import { VisualizzaRispostaDTO } from 'src/app/shared/models/blog/visualizza-risposta-dto.model';
 import { SnackBarService } from 'src/app/shared/snack-bar.service';
+import { ViewRepliesComponent } from './view-replies.component';
 
 @Component({
   selector: 'app-comment-reply',
@@ -39,7 +41,7 @@ import { SnackBarService } from 'src/app/shared/snack-bar.service';
               </form>
             </div>
             <div *ngIf="commenti">
-              <div *ngFor="let c of commenti">
+              <div *ngFor="let c of commenti; let cIdx = index;">
                 <mat-divider></mat-divider>
                 <span>
                   <span class="row mt-2" [innerHTML]="'<h4><em>' + c.autore.username + ' [' + c.autore.email + ' #' + c.id + '] says:</em></h4>'"></span>
@@ -56,29 +58,16 @@ import { SnackBarService } from 'src/app/shared/snack-bar.service';
                     See replies
                   </button>
                 </span>
-                <div *ngIf="risposte">
-                  <div *ngFor="let r of risposte">
-                    <mat-divider></mat-divider>
-                    <span>
-                      <span class="row mt-2" [innerHTML]="'<h4><em>' + r.autore.username + ' [' + r.autore.email + ' #' + r.id + '] replies:</em></h4>'"></span>
-                      <span class="row" [innerHTML]="'<h4>' + r.testo + '</h4>'"></span>
-                    </span>
-                    <span class="row my-2">
-                      <button mat-mini-fab color="basic" class="mb-2" (click)="addingRep(r.id)">
-                        <mat-icon>reply</mat-icon>
-                      </button>
-                    </span>
-                  </div>
-                </div>
               </div>
             </div>
           </mat-card-content>
         </mat-card>
   `,
   styles: [
-  ]
+  ],
+  providers: [DialogService]
 })
-export class CommentReplyComponent implements OnInit {
+export class CommentReplyComponent implements OnInit, OnDestroy {
   @Input() art?: VisualizzaArticoloDTO;
   commenti?: VisualizzaCommentoDTO[];
   risposte?: VisualizzaRispostaDTO[];
@@ -86,8 +75,9 @@ export class CommentReplyComponent implements OnInit {
   @ViewChild('textHere') textBoxInput!: ElementRef;
   isReply: boolean = false;
   idPadre?: number;
+  dialog?: DynamicDialogRef;
 
-  constructor(private fb: FormBuilder, private actRoute: ActivatedRoute, private snackBar: SnackBarService, private blogService: BlogService) {
+  constructor(private fb: FormBuilder, private actRoute: ActivatedRoute, private snackBar: SnackBarService, private blogService: BlogService, private dialogService: DialogService) {
     this.commentForm = this.fb.group({
       comment: new FormControl('')
     });
@@ -123,7 +113,7 @@ export class CommentReplyComponent implements OnInit {
       error: (err: HttpErrorResponse) => this.snackBar.open(err.error.message),
       complete: () => this.snackBar.open("Reply added")
      });
-      setTimeout(() => window.location.reload(), 10000);
+      setTimeout(() => window.location.reload(), 5000);
     }
     else {
       this.isReply = true;
@@ -134,15 +124,46 @@ export class CommentReplyComponent implements OnInit {
 
   searchReps(commId: number) {
     this.blogService.getRepliesByArtIdAndCommId((Number)(this.actRoute.snapshot.params['id']), commId).subscribe({
-      next: (vals: VisualizzaRispostaDTO[]) => this.risposte = vals,
+      next: (vals: VisualizzaRispostaDTO[]) => {
+        this.risposte = vals;
+        console.log("IN SUB", vals);
+      },
       error: (err: HttpErrorResponse) => this.snackBar.open(err.error.message),
       complete: () => {
         console.log("RISP", this.risposte);
         if(!this.risposte?.length) {
           this.snackBar.open("No answers yet");
         }
+        else {
+          this.showDialog();
+        }
       }
     });
+  }
+
+  private showDialog() {
+    this.dialog = this.dialogService.open(ViewRepliesComponent, {
+      header: 'Replies',
+      data: this.risposte,
+      dismissableMask: true,
+      draggable: true,
+      position: 'center'
+    });
+
+    this.dialog.onClose.subscribe((val: any) => {
+      if(val) {
+        if(this.isReply) {
+          this.isReply = false;
+        }
+        this.addingRep(val);
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    if(this.dialog) {
+      this.dialog.close();
+    }
   }
 
 }
