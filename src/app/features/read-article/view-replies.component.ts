@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { VisualizzaRispostaDTO } from 'src/app/shared/models/blog/visualizza-risposta-dto.model';
 import { SnackBarService } from 'src/app/shared/snack-bar.service';
@@ -6,26 +6,28 @@ import { SnackBarService } from 'src/app/shared/snack-bar.service';
 @Component({
   selector: 'app-view-replies',
   template: `
-    <div class="container-fluid d-flex justify-content-center">
-      <mat-card class="row p-4" *ngFor="let rep of replies">
-        <mat-card-header>
-          <mat-card-title>
-            <span [innerHTML]="rep.autore.username + ' [' + rep.autore.email + ' #' + rep.id + '] replies to'"></span>
-          </mat-card-title>
-          <mat-card-subtitle>
-            <span [innerHTML]="'Comment #' + rep.padre.id"></span>
-          </mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-          <span [innerHTML]="rep.testo"></span>
-          <span>
-            <button mat-fab extended color="basic" class="ms-3" (click)="passId(rep.id)">
-              <mat-icon>reply</mat-icon>
+    <div class="container-fluid d-flex flex-column justify-content-center">
+      <div *ngFor="let r of replies" class="p-2">
+        <div class="card" style="width: auto;">
+          <div class="card-body">
+            <div class="row">
+              <span class="card-title" [innerHTML]="r.autore.username + ' [' + r.autore.email + ' #' + r.id + '] replies to'"></span>
+            </div>
+            <div class="row">
+              <span class="card-subtitle mb-2 text-body-secondary" [innerHTML]="'Comment #' + r.padre.id"></span>
+            </div>
+            <div class="row">
+              <span class="card-text" [innerHTML]="r.testo"></span>
+            </div>
+            <span class="row mt-2">
+              <button mat-fab extended color="basic" (click)="passId(r.id)">
+                <mat-icon>reply</mat-icon>
                 Reply
-            </button>
-          </span>
-        </mat-card-content>
-      </mat-card>
+              </button>
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
   `,
   styles: [
@@ -35,7 +37,7 @@ import { SnackBarService } from 'src/app/shared/snack-bar.service';
 export class ViewRepliesComponent implements OnInit {
   replies: VisualizzaRispostaDTO[] = [];
 
-  constructor(private snackBar: SnackBarService, private dialog: DynamicDialogRef, private config: DynamicDialogConfig) { }
+  constructor(private dialog: DynamicDialogRef, private config: DynamicDialogConfig) { }
 
   ngOnInit(): void {
     this.replies = this.config.data;

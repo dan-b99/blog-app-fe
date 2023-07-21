@@ -126,11 +126,9 @@ export class CommentReplyComponent implements OnInit, OnDestroy {
     this.blogService.getRepliesByArtIdAndCommId((Number)(this.actRoute.snapshot.params['id']), commId).subscribe({
       next: (vals: VisualizzaRispostaDTO[]) => {
         this.risposte = vals;
-        console.log("IN SUB", vals);
       },
       error: (err: HttpErrorResponse) => this.snackBar.open(err.error.message),
       complete: () => {
-        console.log("RISP", this.risposte);
         if(!this.risposte?.length) {
           this.snackBar.open("No answers yet");
         }
