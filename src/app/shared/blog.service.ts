@@ -12,6 +12,7 @@ import { AggiuntaCommentoDTO } from './models/blog/aggiunta-commento-dto.model';
 import { AggiuntaRispostaDTO } from './models/blog/aggiunta-risposta-dto.model';
 import { VisualizzaCommentoDTO } from './models/blog/visualizza-commento-dto.model';
 import { VisualizzaRispostaDTO } from './models/blog/visualizza-risposta-dto.model';
+import { VisualizzaVotoDTO } from './models/blog/visualizza-voto-dto.model';
 
 @Injectable({
   providedIn: 'root'
@@ -100,11 +101,15 @@ export class BlogService {
     return this.http.post<void>(enviroment.endpoint + "/comments/add-reply", reply);
   }
 
-  // getRepliesByArtId(id: number): Observable<VisualizzaRispostaDTO[]> {
-  //   return this.http.get<VisualizzaRispostaDTO[]>(enviroment.endpoint + "/comments/replies-by-art-id?id=" + id);
-  // }
-
   getRepliesByArtIdAndCommId(artId: number, commId: number): Observable<VisualizzaRispostaDTO[]> {
     return this.http.get<VisualizzaRispostaDTO[]>(enviroment.endpoint + "/comments/replies-by-artId-commId?artId=" + artId + "&commId=" + commId);
+  }
+
+  getLikesByArtId(artId: number): Observable<VisualizzaVotoDTO[]> {
+    return this.http.get<VisualizzaVotoDTO[]>(enviroment.endpoint + "/votes/likes/" + artId);
+  }
+
+  getDislikesByArtId(artId: number): Observable<VisualizzaVotoDTO[]> {
+    return this.http.get<VisualizzaVotoDTO[]>(enviroment.endpoint + "/votes/dislikes/" + artId);
   }
 }

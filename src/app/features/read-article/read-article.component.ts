@@ -1,7 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { lastValueFrom } from 'rxjs';
 import { BlogService } from 'src/app/shared/blog.service';
 import { enviroment } from 'src/app/shared/enviroment';
@@ -10,6 +11,7 @@ import { VisualizzaArticoloDTO } from 'src/app/shared/models/blog/visualizza-art
 import { VisualizzaTagDTO } from 'src/app/shared/models/blog/visualizza-tag-dto.model';
 import { VisualizzaVotoDTO } from 'src/app/shared/models/blog/visualizza-voto-dto.model';
 import { SnackBarService } from 'src/app/shared/snack-bar.service';
+import { ViewVotesComponent } from './view-votes.component';
 
 @Component({
   selector: 'app-read-article',
@@ -45,7 +47,7 @@ import { SnackBarService } from 'src/app/shared/snack-bar.service';
             </div>
             <mat-divider></mat-divider>
             <div class="row mt-3">
-              <button mat-raised-button class="col-2" [disabled]="!articolo.voti.length">
+              <button mat-raised-button color="primary" class="col-2" [disabled]="!articolo.voti.length" (click)="showVotes()">
                 {{articolo.voti.length ? 'Votes ' + articolo.voti.length : 'No votes yet'}}
               </button>
             </div>
@@ -73,15 +75,17 @@ import { SnackBarService } from 'src/app/shared/snack-bar.service';
     </ng-template>
   `,
   styles: [
-  ]
+  ],
+  providers: [DialogService]
 })
-export class ReadArticleComponent implements OnInit {
+export class ReadArticleComponent implements OnInit, OnDestroy {
   articolo?: VisualizzaArticoloDTO;
   autore?: string;
   tags?: string[];
   hasVoted: boolean | null = null;
+  dialog?: DynamicDialogRef;
   
-  constructor(private blogService: BlogService, private fb: FormBuilder, private actRoute: ActivatedRoute, private snackBar: SnackBarService) { }
+  constructor(private blogService: BlogService, private fb: FormBuilder, private actRoute: ActivatedRoute, private snackBar: SnackBarService, private dialogServ: DialogService) { }
 
   private async getArt() {
     const obsArt$ = this.blogService.getArticleById(this.actRoute.snapshot.params['id']);
@@ -132,5 +136,25 @@ export class ReadArticleComponent implements OnInit {
       },
       error: (err: HttpErrorResponse) => this.snackBar.open(err.error.message)
     });
+  }
+
+  showVotes() {
+    this.showDialog();
+  }
+
+  private showDialog() {
+    this.dialog = this.dialogServ.open(ViewVotesComponent, {
+      header: 'Votes',
+      data: this.articolo!.id,
+      dismissableMask: true,
+      draggable: true,
+      position: 'center'
+    });
+  }
+
+  ngOnDestroy(): void {
+    if(this.dialog) {
+      this.dialog.close();
+    }
   }
 }

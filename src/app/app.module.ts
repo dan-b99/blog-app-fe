@@ -18,6 +18,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { UserLogoutComponent } from './features/user/user-logout/user-logout.component';
 import { RitchTextComponent } from './features/ritch-text/ritch-text.component';
 import { EditorModule } from 'primeng/editor';
+import { TabViewModule } from 'primeng/tabview';
 import { WriteArticleComponent } from './features/write-article/write-article.component';
 import { AuthenticationInterceptor } from './shared/authentication.interceptor';
 import { ValidationComponent } from './features/admin/validation/validation.component';
@@ -39,6 +40,7 @@ import { ArticleToApproveComponent } from './features/admin/approve-articles/art
 import { UsersHandlingComponent } from './features/admin/users-handling/users-handling.component';
 import { CommentReplyComponent } from './features/read-article/comment-reply.component';
 import { ViewRepliesComponent } from './features/read-article/view-replies.component';
+import { ViewVotesComponent } from './features/read-article/view-votes.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,8 @@ import { ViewRepliesComponent } from './features/read-article/view-replies.compo
     ArticleToApproveComponent,
     UsersHandlingComponent,
     CommentReplyComponent,
-    ViewRepliesComponent
+    ViewRepliesComponent,
+    ViewVotesComponent
   ],
   imports: [
     BrowserModule,
@@ -83,7 +86,8 @@ import { ViewRepliesComponent } from './features/read-article/view-replies.compo
     MatSnackBarModule,
     EditorModule,
     DynamicDialogModule,
-    CheckboxModule
+    CheckboxModule,
+    TabViewModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
