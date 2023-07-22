@@ -7,4 +7,5 @@ export interface UtenteOutput {
     email: string,
     ruoli: RuoloOutputDTO[];
     bloccato: boolean;
+    regexMatch: boolean;
 }

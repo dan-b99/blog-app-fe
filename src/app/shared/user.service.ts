@@ -44,6 +44,10 @@ export class UserService {
     return this.http.put<void>(enviroment.endpoint + "/users/custom-password-validation", validaionObj);
   }
 
+  updatePassword(id: number, newPass: string): Observable<UtenteOutput> {
+    return this.http.patch<UtenteOutput>(enviroment.endpoint + "/users/update-password/" + id, newPass);
+  }
+
   setBlocked(id: number): Observable<void> {
     return this.http.put<void>(enviroment.endpoint + "/users/set-block", id);
   }

@@ -32,4 +32,11 @@ export class AuthenticationService {
   }
   return false;
   }
+
+  passChech() {
+   if(localStorage.getItem("matching") === 'true') {
+    return true;
+   }
+   return false;
+  }
 }

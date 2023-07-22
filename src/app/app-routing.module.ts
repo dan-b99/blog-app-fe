@@ -14,20 +14,23 @@ import { SearchArticleComponent } from './features/search-article/search-article
 import { ApproveArticlesComponent } from './features/admin/approve-articles/approve-articles.component';
 import { ArticleToApproveComponent } from './features/admin/approve-articles/article-to-approve/article-to-approve.component';
 import { UsersHandlingComponent } from './features/admin/users-handling/users-handling.component';
+import { ChangePasswordComponent } from './features/user/user-login/change-password.component';
+import { passwordCheckGuard } from './shared/password-check.guard';
 
 const routes: Routes = [
-  {path: "home", component: HomeComponent, canActivate: [authenticationGuard]},
+  {path: "home", component: HomeComponent, canActivate: [authenticationGuard, passwordCheckGuard]},
   {path: 'signUp', component: UserRegistrationComponent},
   {path: 'login', component: UserLoginComponent},
   {path: 'logout', component: UserLogoutComponent},
-  {path: 'add-category', component: AddCategoriesComponent, canActivate: [authenticationGuard, administrationGuard]},
-  {path: 'write', component: WriteArticleComponent, canActivate: [authenticationGuard]},
-  {path: 'read/:id', component: ReadArticleComponent, canActivate: [authenticationGuard]},
+  {path: 'add-category', component: AddCategoriesComponent, canActivate: [authenticationGuard, passwordCheckGuard, administrationGuard]},
+  {path: 'write', component: WriteArticleComponent, canActivate: [authenticationGuard, passwordCheckGuard,]},
+  {path: 'read/:id', component: ReadArticleComponent, canActivate: [authenticationGuard, passwordCheckGuard,]},
   {path: 'validate', component: ValidationComponent, canActivate: [authenticationGuard, administrationGuard]},
-  {path: 'search', component: SearchArticleComponent, canActivate: [authenticationGuard]},
-  {path: 'approve', component: ApproveArticlesComponent, canActivate: [authenticationGuard, administrationGuard]},
-  {path: 'to-approve/:id', component: ArticleToApproveComponent, canActivate: [authenticationGuard, administrationGuard]},
-  {path: 'users-handling', component: UsersHandlingComponent, canActivate: [authenticationGuard, administrationGuard]},
+  {path: 'search', component: SearchArticleComponent, canActivate: [authenticationGuard, passwordCheckGuard,]},
+  {path: 'reset-password', component: ChangePasswordComponent, canActivate: [authenticationGuard]},
+  {path: 'approve', component: ApproveArticlesComponent, canActivate: [authenticationGuard, passwordCheckGuard, administrationGuard]},
+  {path: 'to-approve/:id', component: ArticleToApproveComponent, canActivate: [authenticationGuard, passwordCheckGuard, administrationGuard]},
+  {path: 'users-handling', component: UsersHandlingComponent, canActivate: [authenticationGuard, passwordCheckGuard, administrationGuard]},
   {path: '**', redirectTo: 'home'}
 ];
 

@@ -41,6 +41,7 @@ import { UsersHandlingComponent } from './features/admin/users-handling/users-ha
 import { CommentReplyComponent } from './features/read-article/comment-reply.component';
 import { ViewRepliesComponent } from './features/read-article/view-replies.component';
 import { ViewVotesComponent } from './features/read-article/view-votes.component';
+import { ChangePasswordComponent } from './features/user/user-login/change-password.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { ViewVotesComponent } from './features/read-article/view-votes.component
     UsersHandlingComponent,
     CommentReplyComponent,
     ViewRepliesComponent,
-    ViewVotesComponent
+    ViewVotesComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,
