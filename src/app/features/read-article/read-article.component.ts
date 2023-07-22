@@ -45,15 +45,19 @@ import { SnackBarService } from 'src/app/shared/snack-bar.service';
             </div>
             <mat-divider></mat-divider>
             <div class="row mt-3">
-              <h4 [innerHTML]="articolo.voti.length ? '<em>Votes</em>' + '&ensp;' + articolo.voti.length : '<em>No votes yet</em>'"></h4>
-              <button mat-fab extended [color]="hasVoted ? 'primary' : 'basic'" class="me-3" (click)="liked()">
-                <mat-icon>thumb_up</mat-icon>
-                {{hasVoted ? 'Liked' : 'Like'}}
+              <button mat-raised-button class="col-2" [disabled]="!articolo.voti.length">
+                {{articolo.voti.length ? 'Votes ' + articolo.voti.length : 'No votes yet'}}
               </button>
-              <button mat-fab extended [color]="hasVoted === false ? 'primary' : 'basic'" (click)="disliked()">
-                <mat-icon>thumb_down</mat-icon>
-                {{hasVoted === false ? 'Disliked' : 'Dislike'}}
-              </button>
+            </div>
+            <div class="row mt-3">
+              <button mat-fab extended [color]="hasVoted ? 'primary' : 'basic'" class="col-6 me-3" (click)="liked()">
+                  <mat-icon>thumb_up</mat-icon>
+                  {{hasVoted ? 'Liked' : 'Like'}}
+                </button>
+                <button mat-fab extended [color]="hasVoted === false ? 'primary' : 'basic'" class="col-6" (click)="disliked()">
+                  <mat-icon>thumb_down</mat-icon>
+                  {{hasVoted === false ? 'Disliked' : 'Dislike'}}
+                </button>
             </div>
           </mat-card-content>
         </mat-card>
@@ -77,7 +81,6 @@ export class ReadArticleComponent implements OnInit {
   tags?: string[];
   hasVoted: boolean | null = null;
   
-
   constructor(private blogService: BlogService, private fb: FormBuilder, private actRoute: ActivatedRoute, private snackBar: SnackBarService) { }
 
   private async getArt() {

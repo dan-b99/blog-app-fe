@@ -113,7 +113,7 @@ export class CommentReplyComponent implements OnInit, OnDestroy {
       error: (err: HttpErrorResponse) => this.snackBar.open(err.error.message),
       complete: () => this.snackBar.open("Reply added")
      });
-      setTimeout(() => window.location.reload(), 5000);
+      setTimeout(() => window.location.reload(), 3000);
     }
     else {
       this.isReply = true;

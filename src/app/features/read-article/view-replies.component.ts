@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { VisualizzaRispostaDTO } from 'src/app/shared/models/blog/visualizza-risposta-dto.model';
-import { SnackBarService } from 'src/app/shared/snack-bar.service';
 
 @Component({
   selector: 'app-view-replies',
@@ -19,10 +18,9 @@ import { SnackBarService } from 'src/app/shared/snack-bar.service';
             <div class="row">
               <span class="card-text" [innerHTML]="r.testo"></span>
             </div>
-            <span class="row mt-2">
-              <button mat-fab extended color="basic" (click)="passId(r.id)">
+            <span class="row mt-3 ms-1">
+              <button mat-mini-fab color="basic" (click)="passId(r.id)">
                 <mat-icon>reply</mat-icon>
-                Reply
               </button>
             </span>
           </div>
