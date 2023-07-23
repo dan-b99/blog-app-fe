@@ -4,8 +4,11 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
 import { BlogService } from 'src/app/shared/blog.service';
+import { enviroment } from 'src/app/shared/enviroment';
+import { UtenteOutput } from 'src/app/shared/models/auth/utente-output.model';
 import { VisualizzaArticoloDTO } from 'src/app/shared/models/blog/visualizza-articolo-dto.model';
 import { SnackBarService } from 'src/app/shared/snack-bar.service';
+import { UserService } from 'src/app/shared/user.service';
 
 @Component({
   selector: 'app-home',
@@ -15,9 +18,10 @@ import { SnackBarService } from 'src/app/shared/snack-bar.service';
 export class HomeComponent implements OnInit {
   articles: VisualizzaArticoloDTO[] = [];
   orderForm: FormGroup;
+  isNotificationsAct: boolean = localStorage.getItem("notifications") === 'true' ? true : false;
   regex = /<img[^>]*>/;
 
-  constructor(private router: Router, private blogService: BlogService, private snackbar: SnackBarService, fb: FormBuilder) { 
+  constructor(private router: Router, private blogService: BlogService, private userService: UserService, private snackbar: SnackBarService, fb: FormBuilder) { 
     this.orderForm = fb.group({
       asc: new FormControl<boolean>(false),
       desc: new FormControl<boolean>(false),
@@ -72,4 +76,16 @@ export class HomeComponent implements OnInit {
   reading(id: number) {
     this.router.navigateByUrl("/read/" + id);
   }
-}
+
+  notifications() {
+    this.userService.setNotifications((Number)(enviroment.user_id)).subscribe({
+      next: (val: UtenteOutput) => {
+        localStorage.removeItem("notifications");
+        localStorage.setItem("notifications", val.iscritto ? 'true' : 'false');
+        this.snackbar.open("Operazione effettuata con successo");
+        setTimeout(() => location.reload(), 2000);
+      },
+      error: (err: HttpErrorResponse) => this.snackbar.open(err.error.message)
+    });
+  }
+} 

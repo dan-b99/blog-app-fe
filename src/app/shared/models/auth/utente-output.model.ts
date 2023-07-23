@@ -8,4 +8,5 @@ export interface UtenteOutput {
     ruoli: RuoloOutputDTO[];
     bloccato: boolean;
     regexMatch: boolean;
+    iscritto: boolean;
 }

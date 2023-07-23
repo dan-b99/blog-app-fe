@@ -48,12 +48,7 @@ import { UserService } from 'src/app/shared/user.service';
       <li class="nav-item">
           <a *ngIf="!userId" class="nav-link active" routerLink="signUp">Sign up</a>
       </li>
-        </ul>
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link active" [innerText]="name ? 'Welcome back, ' + name : ''"></a>
-          </li>
-        </ul>
+      </ul>
       </div>
     </div>
   </nav>
@@ -63,7 +58,6 @@ import { UserService } from 'src/app/shared/user.service';
 })
 export class HeaderComponent implements OnInit {
   userId: string | null = enviroment.user_id;
-  name: string | null = enviroment.name;
   roleAdmin: string | null = null;
   
   constructor(private userService: UserService, private sb: SnackBarService) { }

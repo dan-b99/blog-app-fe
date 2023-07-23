@@ -55,4 +55,8 @@ export class UserService {
   delete(id: number): Observable<void> {
     return this.http.delete<void>(enviroment.endpoint + "/users/delete/" + id);
   }
+
+  setNotifications(id: number): Observable<UtenteOutput> {
+    return this.http.patch<UtenteOutput>(enviroment.endpoint + "/users/set-notifications", id);
+  }
 }

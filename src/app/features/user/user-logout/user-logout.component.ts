@@ -16,6 +16,7 @@ export class UserLogoutComponent implements OnInit {
    localStorage.removeItem("USER_ID");
    localStorage.removeItem("jwt");
    localStorage.removeItem("matching");
+   localStorage.removeItem("notifications");
    localStorage.removeItem("roles");
    this.router.navigateByUrl("/login").then(() => window.location.reload());
   }

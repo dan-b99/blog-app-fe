@@ -74,6 +74,7 @@ export class UserLoginComponent {
         localStorage.setItem("jwt", authenticated.jwt);
         localStorage.setItem("USER_ID", authenticated.utenteOutput.id + '');
         localStorage.setItem("matching", authenticated.utenteOutput.regexMatch ? 'true' : 'false');
+        localStorage.setItem("notifications", authenticated.utenteOutput.iscritto ? 'true' : 'false');
         authenticated.utenteOutput.ruoli.map((val: RuoloOutputDTO) => roles += val.authority + " ");
         localStorage.setItem("roles", roles);
         this.router.navigateByUrl('/home').then(() => window.location.reload());

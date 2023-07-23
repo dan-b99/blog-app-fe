@@ -6,6 +6,11 @@
           <p-checkbox formControlName="asc" label="Least voted" [binary]="true" (onChange)="clickMe()"></p-checkbox>
           <p-checkbox formControlName="desc" label="Most voted" [binary]="true" (onChange)="clickMe()" class="mx-3"></p-checkbox>
           <p-checkbox formControlName="likes" label="Most liked" [binary]="true" (onChange)="clickMe()"></p-checkbox>
+          <span class="ms-5 mt-4">
+            <button mat-icon-button color="primary" (click)="notifications()">
+              <mat-icon>{{isNotificationsAct ? 'notifications_off' : 'notifications_active'}}</mat-icon>
+            </button>
+          </span>
         </form>
       </div>
       <span *ngFor="let art of articles">
