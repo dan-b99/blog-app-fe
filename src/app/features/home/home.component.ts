@@ -30,6 +30,10 @@ export class HomeComponent implements OnInit {
   }
 
   textSeparator(content: string): string {
+    if(content.startsWith('<p><img')) {
+      const repl = content.replace(this.regex, '');
+      return repl.length > 155 ? repl.slice(0, 156) : content;
+    }
     return content.length > 155 ? content.slice(0, 156) + '\n...' : content;
   }
 

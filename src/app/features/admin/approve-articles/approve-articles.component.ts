@@ -36,6 +36,7 @@ import { SnackBarService } from 'src/app/shared/snack-bar.service';
 })
 export class ApproveArticlesComponent implements OnInit {
   toApproveArticles: VisualizzaArticoloDTO[] = [];
+  regex = /<img[^>]*>/;
   
   constructor(private blogService: BlogService, private sb: SnackBarService, private router: Router) { }
 
@@ -45,6 +46,10 @@ export class ApproveArticlesComponent implements OnInit {
   }
 
   textSeparator(content: string): string {
+    if(content.startsWith('<p><img')) {
+      const repl = content.replace(this.regex, '');
+      return repl.length > 155 ? repl.slice(0, 156) : content;
+    }
     return content.length > 155 ? content.slice(0, 156) + '\n...' : content;
   }
 
